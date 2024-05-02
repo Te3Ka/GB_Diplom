@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainMenuFragment">
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        app:layout_constraintBottom_toTopOf="@id/button_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="30sp"
+        android:textColor="@color/violet"
+        />
+
+    <ImageButton
+        android:id="@+id/button_profile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@color/cardview_dark_background"
+        android:src="@drawable/button_ic_my_profile"
+        app:layout_constraintBottom_toTopOf="@id/button_schedule_meeting"
+        app:layout_constraintEnd_toStartOf="@id/button_my_games"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/button_my_games"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@color/cardview_dark_background"
+        android:src="@drawable/button_ic_my_games"
+        app:layout_constraintBottom_toTopOf="@id/button_schedule_meeting"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/button_profile"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/button_schedule_meeting"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:background="@color/cardview_dark_background"
+        android:src="@drawable/button_ic_schedule_meeting"
+        app:layout_constraintBottom_toTopOf="@id/button_guild"
+        app:layout_constraintEnd_toEndOf="@id/button_my_games"
+        app:layout_constraintStart_toStartOf="@id/button_profile"
+        app:layout_constraintTop_toBottomOf="@+id/button_profile" />
+
+    <ImageButton
+        android:id="@+id/button_guild"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/button_ic_guild"
+        android:background="@color/cardview_dark_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/button_profile"
+        app:layout_constraintStart_toStartOf="@id/button_profile"
+        app:layout_constraintTop_toBottomOf="@id/button_schedule_meeting"
+        />
+
+    <ImageButton
+        android:id="@+id/button_stats"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/button_ic_stats"
+        android:background="@color/cardview_dark_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/button_my_games"
+        app:layout_constraintStart_toStartOf="@id/button_my_games"
+        app:layout_constraintTop_toBottomOf="@id/button_schedule_meeting"
+        />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

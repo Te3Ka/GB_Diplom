@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/fragment_main_menu">
+
+    <fragment
+        android:id="@+id/fragment_main_menu"
+        android:name="ru.te3ka.boardgamerdiary.MainMenuFragment"
+        android:label="Main Menu"
+        tools:layout="@layout/fragment_main_menu">
+        <action
+            android:id="@+id/action_fragment_main_menu_to_fragment_profile"
+            app:destination="@id/fragment_profile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_profile"
+        android:name="ru.te3ka.boardgamerdiary.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile"
+        >
+
+    </fragment>
+
+</navigation>
