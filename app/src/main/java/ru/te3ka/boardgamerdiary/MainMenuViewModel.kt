@@ -3,12 +3,14 @@ package ru.te3ka.boardgamerdiary
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.ActivityNavigator
+import androidx.navigation.fragment.FragmentNavigator
 
 class MainMenuViewModel : ViewModel() {
-    private val _navigateToProfile = MutableLiveData<Event<Unit>>()
-    val navigateToProfile: LiveData<Event<Unit>> = _navigateToProfile
+    private val _navigateToDestination = MutableLiveData<Event<Int>>()
+    val navigateToDestination: LiveData<Event<Int>> = _navigateToDestination
 
-    fun onProfileButtonClicked() {
-        _navigateToProfile.value = Event(Unit)
+    fun onNavigationButtonClicked(destinationId: Int) {
+        _navigateToDestination.value = Event(destinationId)
     }
 }

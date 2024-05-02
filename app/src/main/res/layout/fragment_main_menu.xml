@@ -65,7 +65,7 @@
         />
 
     <ImageButton
-        android:id="@+id/button_stats"
+        android:id="@+id/button_statistics"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@drawable/button_ic_stats"

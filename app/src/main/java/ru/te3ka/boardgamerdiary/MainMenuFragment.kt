@@ -31,12 +31,33 @@ class MainMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Переход на фрагмент "Профиль"
         binding.buttonProfile.setOnClickListener {
-            viewModel.onProfileButtonClicked()
+            viewModel.onNavigationButtonClicked(R.id.action_fragment_main_menu_to_fragment_profile)
         }
 
-        viewModel.navigateToProfile.observe(viewLifecycleOwner, EventObserver {
-            findNavController().navigate(R.id.action_fragment_main_menu_to_fragment_profile)
+        // Переход на фрагмент "Мои игры"
+        binding.buttonMyGames.setOnClickListener {
+            viewModel.onNavigationButtonClicked(R.id.action_fragment_main_menu_to_fragment_my_games)
+        }
+
+        // Переход на фрагмент "Назначить встречу"
+        binding.buttonScheduleMeeting.setOnClickListener {
+            viewModel.onNavigationButtonClicked(R.id.action_fragment_main_menu_to_fragment_schedule_meeting)
+        }
+
+        // Переход на фрагмент "Гильдии"
+        binding.buttonGuild.setOnClickListener {
+            viewModel.onNavigationButtonClicked(R.id.action_fragment_main_menu_to_fragment_guild)
+        }
+
+        // Переход на фрагмент "Статистика"
+        binding.buttonStatistics.setOnClickListener {
+            viewModel.onNavigationButtonClicked(R.id.action_fragment_main_menu_to_fragment_statistics)
+        }
+
+        viewModel.navigateToDestination.observe(viewLifecycleOwner, EventObserver {
+            destinationId -> findNavController().navigate(destinationId)
         })
     }
 }

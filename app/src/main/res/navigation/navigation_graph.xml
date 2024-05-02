@@ -13,15 +13,54 @@
         <action
             android:id="@+id/action_fragment_main_menu_to_fragment_profile"
             app:destination="@id/fragment_profile" />
+        <action
+            android:id="@+id/action_fragment_main_menu_to_fragment_my_games"
+            app:destination="@id/fragment_my_games" />
+        <action
+            android:id="@+id/action_fragment_main_menu_to_fragment_schedule_meeting"
+            app:destination="@id/fragment_schedule_meeting" />
+        <action
+            android:id="@+id/action_fragment_main_menu_to_fragment_guild"
+            app:destination="@id/fragment_guild" />
+        <action
+            android:id="@+id/action_fragment_main_menu_to_fragment_statistics"
+            app:destination="@id/fragment_statistics" />
     </fragment>
 
     <fragment
         android:id="@+id/fragment_profile"
         android:name="ru.te3ka.boardgamerdiary.profile.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile"
-        >
-
+        tools:layout="@layout/fragment_profile">
     </fragment>
+
+    <fragment
+        android:id="@+id/fragment_my_games"
+        android:name="ru.te3ka.boardgamerdiary.mygames.MyGamesFragment"
+        android:label="My Games"
+        tools:layout="@layout/fragment_my_games">
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_schedule_meeting"
+        android:name="ru.te3ka.boardgamerdiary.schedule_meeting.ScheduleMeetingFragment"
+        android:label="Schedule Meeting"
+        tools:layout="@layout/fragment_schedule_meeting">
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_guild"
+        android:name="ru.te3ka.boardgamerdiary.guild.GuildFragment"
+        android:label="Guild"
+        tools:layout="@layout/fragment_guild">
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_statistics"
+        android:name="ru.te3ka.boardgamerdiary.statistics.StatisticsFragment"
+        android:label="Statistics"
+        tools:layout="@layout/fragment_statistics">
+    </fragment>
+
 
 </navigation>
