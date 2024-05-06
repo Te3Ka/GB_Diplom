@@ -29,4 +29,5 @@
     <string name="choose_camera">Сделать фотографию</string>
     <string name="choose_gallery">Выбрать из галлереи</string>
     <string name="select_option_profile_image">Выберите опцию</string>
+    <string name="save_profile">Изменения в профиле сохранены</string>
 </resources>

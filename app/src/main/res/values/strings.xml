@@ -32,4 +32,5 @@
     <string name="choose_camera">Take Photo</string>
     <string name="choose_gallery">Choose from Gallery</string>
     <string name="select_option_profile_image">Select option</string>
+    <string name="save_profile">Profile changes have been saved</string>
 </resources>
