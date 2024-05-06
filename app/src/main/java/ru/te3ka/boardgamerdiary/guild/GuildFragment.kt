@@ -6,26 +6,34 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import ru.te3ka.boardgamerdiary.R
+import ru.te3ka.boardgamerdiary.databinding.FragmentGuildBinding
+import ru.te3ka.boardgamerdiary.databinding.FragmentProfileBinding
 
 class GuildFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = GuildFragment()
-    }
-
-    private val viewModel: GuildViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
+    private var _binding: FragmentGuildBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var animationSlideRightIn: Animation
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_guild, container, false)
+        _binding = FragmentGuildBinding.inflate(inflater)
+        animationSlideRightIn = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_right_in)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.startAnimation(animationSlideRightIn)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

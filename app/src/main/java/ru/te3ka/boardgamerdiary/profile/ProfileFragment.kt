@@ -8,12 +8,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
+import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.databinding.FragmentProfileBinding
 import java.util.Calendar
 
 class ProfileFragment : Fragment() {
-    private lateinit var binding: FragmentProfileBinding
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var animationSlideRightIn: Animation
     private lateinit var inputMethodManager: InputMethodManager
     private val viewModel: ProfileViewModel by viewModels()
     private var year = Calendar.getInstance().get(Calendar.YEAR)
@@ -25,17 +30,25 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentProfileBinding.inflate(inflater)
+        _binding = FragmentProfileBinding.inflate(inflater)
+        animationSlideRightIn = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_right_in)
+
+        allEditTextFalseFocusable()
+        return binding.root
+    }
+
+    private fun allEditTextFalseFocusable() {
         binding.editTextNickname.isFocusable = false
         binding.editTextFirstName.isFocusable = false
         binding.editTextSurname.isFocusable = false
         binding.editTextCity.isFocusable = false
         binding.editTextContactNumber.isFocusable = false
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.startAnimation(animationSlideRightIn)
+
         inputMethodManager =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
@@ -65,7 +78,7 @@ class ProfileFragment : Fragment() {
             true
         }
 
-
+        //TODO: Переделать слушатели
         binding.editTextFirstName.setOnClickListener {
             if (binding.editTextFirstName.length() >= 1
                 && binding.editTextFirstName.isFocusable
@@ -175,5 +188,10 @@ class ProfileFragment : Fragment() {
             datePickerDialog.show()
             true
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
