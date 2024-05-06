@@ -10,7 +10,6 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.databinding.FragmentMyGamesBinding
-import ru.te3ka.boardgamerdiary.databinding.FragmentProfileBinding
 
 class MyGamesFragment : Fragment() {
     private var _binding: FragmentMyGamesBinding? = null
@@ -32,6 +31,10 @@ class MyGamesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.startAnimation(animationSlideRightIn)
+
+        binding.viewPagerMyGames.adapter = MyGamesPagerAdapter(childFragmentManager)
+        binding.tableLayoutMyGames.setupWithViewPager(binding.viewPagerMyGames)
+
     }
 
     override fun onDestroy() {
