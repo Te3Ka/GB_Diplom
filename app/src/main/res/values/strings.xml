@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Board Gamer Diary</string>
+    <string name="hint_new_nickname">Nickname (Hold 2s)</string>
+    <string name="hint_new_first_name">First name (Hold 2s)</string>
+    <string name="hint_new_surname">Surname (Hold 2s)</string>
+    <string name="hint_home_city">Home city (Hold 2s)</string>
+    <string name="text_day_of_birth">Day</string>
+    <string name="month_of_birth">Month</string>
+    <string name="text_year_of_birth">Year of birth</string>
+    <string name="select_day_of_birth" translatable="false">31</string>
+    <string name="select_month_of_birth">JUN</string>
+    <string name="select_year_of_birth" translatable="false">2000</string>
+    <string name="hint_contact_number">Contact number (Hold 2s)</string>
+
+    <string name="click_any_edit_text_field">To edit a field, hold for 2 seconds</string>
 </resources>

@@ -1,13 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".profile.ProfileFragment">
 
-    <TextView
+    <ImageButton
+        android:id="@+id/button_profile_back_to_main_menu"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/button_rounded_corners"
+        android:src="@drawable/button_ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_profile"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_rounded_corners"
+        android:padding="0dp"
+        android:src="@drawable/button_ic_my_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_profile_back_to_main_menu" />
+
+    <ImageButton
+        android:id="@+id/button_edit_image_profile"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/button_rounded_corners"
+        android:src="@drawable/button_ic_edit"
+        app:layout_constraintBottom_toBottomOf="@id/image_profile"
+        app:layout_constraintStart_toStartOf="@id/image_profile" />
+
+    <EditText
+        android:id="@+id/editText_nickname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:hint="@string/hint_new_nickname"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textColor="@color/violet"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_profile"
+        app:layout_constraintTop_toTopOf="@id/image_profile" />
+
+    <EditText
+        android:id="@+id/editText_first_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:hint="@string/hint_new_first_name"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/editText_surname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_profile"
+        app:layout_constraintTop_toBottomOf="@id/editText_nickname" />
+
+    <EditText
+        android:id="@+id/editText_surname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:hint="@string/hint_new_surname"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/image_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_profile" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_birthday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test_profile"
-        />
-</FrameLayout>
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@id/image_profile"
+        app:layout_constraintTop_toBottomOf="@id/image_profile">
+
+        <TextView
+            android:id="@+id/text_day_of_birth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_day_of_birth"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_select_day_of_birth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/select_day_of_birth"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@id/text_day_of_birth"
+            app:layout_constraintStart_toStartOf="@id/text_day_of_birth"
+            app:layout_constraintTop_toBottomOf="@id/text_day_of_birth" />
+
+        <TextView
+            android:id="@+id/text_month_of_birth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/month_of_birth"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@id/text_day_of_birth"
+            app:layout_constraintTop_toTopOf="@id/text_day_of_birth" />
+
+        <TextView
+            android:id="@+id/text_select_month_of_birth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/select_month_of_birth"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@id/text_month_of_birth"
+            app:layout_constraintStart_toStartOf="@id/text_month_of_birth"
+            app:layout_constraintTop_toBottomOf="@id/text_month_of_birth" />
+
+        <TextView
+            android:id="@+id/text_year_of_birth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/text_year_of_birth"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@id/text_month_of_birth"
+            app:layout_constraintTop_toTopOf="@id/text_month_of_birth" />
+
+        <TextView
+            android:id="@+id/text_select_year_of_birth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/select_year_of_birth"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@id/text_year_of_birth"
+            app:layout_constraintStart_toStartOf="@id/text_year_of_birth"
+            app:layout_constraintTop_toBottomOf="@id/text_year_of_birth" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/editText_city"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_home_city"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/container_birthday"
+        app:layout_constraintEnd_toEndOf="@id/editText_surname"
+        app:layout_constraintStart_toEndOf="@id/container_birthday"
+        app:layout_constraintTop_toTopOf="@id/container_birthday" />
+
+    <EditText
+        android:id="@+id/editText_contact_number"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_contact_number"
+        android:inputType="phone"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/editText_city"
+        app:layout_constraintStart_toStartOf="@id/container_birthday"
+        app:layout_constraintTop_toBottomOf="@id/container_birthday" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

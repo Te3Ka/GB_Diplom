@@ -32,35 +32,36 @@
         android:name="ru.te3ka.boardgamerdiary.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_fragment_profile_to_fragment_main_menu"
+            app:destination="@id/fragment_main_menu"
+            app:popUpTo="@id/fragment_profile"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
         android:id="@+id/fragment_my_games"
         android:name="ru.te3ka.boardgamerdiary.mygames.MyGamesFragment"
         android:label="My Games"
-        tools:layout="@layout/fragment_my_games">
-    </fragment>
+        tools:layout="@layout/fragment_my_games"></fragment>
 
     <fragment
         android:id="@+id/fragment_schedule_meeting"
         android:name="ru.te3ka.boardgamerdiary.schedule_meeting.ScheduleMeetingFragment"
         android:label="Schedule Meeting"
-        tools:layout="@layout/fragment_schedule_meeting">
-    </fragment>
+        tools:layout="@layout/fragment_schedule_meeting"></fragment>
 
     <fragment
         android:id="@+id/fragment_guild"
         android:name="ru.te3ka.boardgamerdiary.guild.GuildFragment"
         android:label="Guild"
-        tools:layout="@layout/fragment_guild">
-    </fragment>
+        tools:layout="@layout/fragment_guild"></fragment>
 
     <fragment
         android:id="@+id/fragment_statistics"
         android:name="ru.te3ka.boardgamerdiary.statistics.StatisticsFragment"
         android:label="Statistics"
-        tools:layout="@layout/fragment_statistics">
-    </fragment>
+        tools:layout="@layout/fragment_statistics"></fragment>
 
 
 </navigation>

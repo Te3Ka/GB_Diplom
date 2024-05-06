@@ -1,5 +1,6 @@
 package ru.te3ka.boardgamerdiary
 
+import android.animation.ObjectAnimator
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

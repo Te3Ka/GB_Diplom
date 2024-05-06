@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Ежедневник Настольщика</string>
+    <string name="app_name">Дневник Настольщика</string>
+    <string name="hint_new_nickname">Никнейм (Зажмите 2с)</string>
+    <string name="hint_new_first_name">Имя (Зажмите 2с)</string>
+    <string name="hint_new_surname">Фамилия (Зажмите 2с)</string>
+    <string name="text_day_of_birth">День</string>
+    <string name="month_of_birth">Месяц</string>
+    <string name="select_month_of_birth">ЯНВ</string>
+    <string name="text_year_of_birth">Год рождения</string>
+    <string name="hint_home_city">Город (Заж. 2с)</string>
+    <string name="hint_contact_number">Телефон для связи (Зажмите 2с)</string>
+    <string name="click_any_edit_text_field">Для редактирования поля удерживайте 2 секунды</string>
 </resources>
