@@ -5,4 +5,6 @@
     <color name="violet">#FFFF00FF</color>
     <color name="light_grey">#FFC0C0C0</color>
     <color name="red">#FFFF0000</color>
+    <color name="blue">#FF0000FF</color>
+    <color name="pale_blue">#FFAFEEEE</color>
 </resources>

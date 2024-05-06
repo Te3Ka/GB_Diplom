@@ -10,5 +10,23 @@
     <string name="text_year_of_birth">Год рождения</string>
     <string name="hint_home_city">Город (Заж. 2с)</string>
     <string name="hint_contact_number">Телефон для связи (Зажмите 2с)</string>
+    <string name="hint_email">Электронная почта (Зажмите 2с)</string>
     <string name="click_any_edit_text_field">Для редактирования поля удерживайте 2 секунды</string>
+    <string name="hint_hobbies">Немного о себе.</string>
+    <string name="month_jan">ЯНВ</string>
+    <string name="month_feb">ФЕВ</string>
+    <string name="month_mar">МАР</string>
+    <string name="month_apr">АПР</string>
+    <string name="month_may">МАЙ</string>
+    <string name="month_jun">ИЮН</string>
+    <string name="month_jul">ИЮЛ</string>
+    <string name="month_aug">АВГ</string>
+    <string name="month_sep">СЕН</string>
+    <string name="month_oct">ОКТ</string>
+    <string name="month_nov">НОЯ</string>
+    <string name="month_dec">ДЕК</string>
+    <string name="month_error">ОШИБКА!</string>
+    <string name="choose_camera">Сделать фотографию</string>
+    <string name="choose_gallery">Выбрать из галлереи</string>
+    <string name="select_option_profile_image">Выберите опцию</string>
 </resources>

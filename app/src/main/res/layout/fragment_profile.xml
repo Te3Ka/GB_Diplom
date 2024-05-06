@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_profile"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".profile.ProfileFragment">
@@ -12,7 +12,7 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_margin="10dp"
-        android:background="@drawable/button_rounded_corners"
+        android:background="@drawable/ripple_button_pale_blue"
         android:src="@drawable/button_ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +33,7 @@
         android:id="@+id/button_edit_image_profile"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:background="@drawable/button_rounded_corners"
+        android:background="@drawable/ripple_button_pale_blue"
         android:src="@drawable/button_ic_edit"
         app:layout_constraintBottom_toBottomOf="@id/image_profile"
         app:layout_constraintStart_toStartOf="@id/image_profile" />
@@ -44,11 +44,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
+        android:background="@drawable/ripple_edit_text_light_gray"
         android:hint="@string/hint_new_nickname"
         android:inputType="text"
         android:textAlignment="center"
         android:textColor="@color/violet"
-        android:textSize="15sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image_profile"
         app:layout_constraintTop_toTopOf="@id/image_profile" />
@@ -59,11 +60,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
+        android:background="@drawable/ripple_edit_text_light_gray"
         android:hint="@string/hint_new_first_name"
         android:inputType="text"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="15sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/editText_surname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image_profile"
@@ -75,11 +77,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
+        android:background="@drawable/ripple_edit_text_light_gray"
         android:hint="@string/hint_new_surname"
         android:inputType="text"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="15sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/image_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image_profile" />
@@ -89,6 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:background="@drawable/ripple_edit_text_light_gray"
         app:layout_constraintStart_toStartOf="@id/image_profile"
         app:layout_constraintTop_toBottomOf="@id/image_profile">
 
@@ -165,6 +169,7 @@
         android:id="@+id/editText_city"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/ripple_edit_text_light_gray"
         android:hint="@string/hint_home_city"
         android:inputType="text"
         android:textAlignment="center"
@@ -176,16 +181,47 @@
         app:layout_constraintTop_toTopOf="@id/container_birthday" />
 
     <EditText
-        android:id="@+id/editText_contact_number"
+        android:id="@+id/editText_contact_phone_number"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/ripple_edit_text_light_gray"
         android:hint="@string/hint_contact_number"
         android:inputType="phone"
-        android:textAlignment="center"
+        android:textAlignment="textEnd"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/editText_city"
         app:layout_constraintStart_toStartOf="@id/container_birthday"
         app:layout_constraintTop_toBottomOf="@id/container_birthday" />
 
+    <EditText
+        android:id="@+id/editText_contact_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_edit_text_light_gray"
+        android:hint="@string/hint_email"
+        android:inputType="textEmailAddress"
+        android:textAlignment="textEnd"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/editText_contact_phone_number"
+        app:layout_constraintStart_toStartOf="@id/editText_contact_phone_number"
+        app:layout_constraintTop_toBottomOf="@id/editText_contact_phone_number" />
+
+    <EditText
+        android:id="@+id/editText_hobbies"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint="@string/hint_hobbies"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/editText_contact_email"
+        app:layout_constraintStart_toStartOf="@id/editText_contact_email"
+        app:layout_constraintTop_toBottomOf="@id/editText_contact_email"
+        android:layout_marginBottom="20dp"
+        android:inputType="textMultiLine"
+        android:gravity="top"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:padding="10dp"
+        android:background="@drawable/ripple_edit_text_light_gray" />
 </androidx.constraintlayout.widget.ConstraintLayout>

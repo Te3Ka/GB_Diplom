@@ -12,6 +12,24 @@
     <string name="select_month_of_birth">JUN</string>
     <string name="select_year_of_birth" translatable="false">2000</string>
     <string name="hint_contact_number">Contact number (Hold 2s)</string>
+    <string name="hint_email">Email (Hold 2s)</string>
+    <string name="hint_hobbies">A little about myself.</string>
 
     <string name="click_any_edit_text_field">To edit a field, hold for 2 seconds</string>
+    <string name="month_jan">JAN</string>
+    <string name="month_feb">FEB</string>
+    <string name="month_mar">MAR</string>
+    <string name="month_apr">APR</string>
+    <string name="month_may">MAY</string>
+    <string name="month_jun">JUN</string>
+    <string name="month_jul">JUL</string>
+    <string name="month_aug">AUG</string>
+    <string name="month_sep">SEP</string>
+    <string name="month_oct">OCT</string>
+    <string name="month_nov">NOV</string>
+    <string name="month_dec">DEC</string>
+    <string name="month_error">ERROR!</string>
+    <string name="choose_camera">Take Photo</string>
+    <string name="choose_gallery">Choose from Gallery</string>
+    <string name="select_option_profile_image">Select option</string>
 </resources>
