@@ -30,4 +30,16 @@
     <string name="choose_gallery">Выбрать из галлереи</string>
     <string name="select_option_profile_image">Выберите опцию</string>
     <string name="save_profile">Изменения в профиле сохранены</string>
+    <string name="collection">Коллекция</string>
+    <string name="wishlist">Хочу купить</string>
+    <string name="want_to_play">Хочу сыграть</string>
+    <string name="text_number_games">Количество игр</string>
+    <string name="board_game_title">Название Игры</string>
+    <string name="year_and_month_of_purchase">Год и месяц покупки</string>
+    <string name="my_score">Моя оценка</string>
+    <string name="new_game_in_collection_default_value">Моя Новая Игра</string>
+    <string name="remove_element_from_my_collectoin">Удалить игру из моей коллекции</string>
+    <string name="are_you_sure">Уверен?</string>
+    <string name="i_am_sure">Я уверен!</string>
+    <string name="i_changed">Я передумал!</string>
 </resources>

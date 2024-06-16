@@ -16,6 +16,23 @@
     <string name="hint_hobbies">A little about myself.</string>
 
     <string name="click_any_edit_text_field">To edit a field, hold for 2 seconds</string>
+
+    <string-array name="months_array">
+        <item>@string/month_jan</item>
+        <item>@string/month_feb</item>
+        <item>@string/month_mar</item>
+        <item>@string/month_apr</item>
+        <item>@string/month_may</item>
+        <item>@string/month_jun</item>
+        <item>@string/month_jul</item>
+        <item>@string/month_aug</item>
+        <item>@string/month_sep</item>
+        <item>@string/month_oct</item>
+        <item>@string/month_nov</item>
+        <item>@string/month_dec</item>
+        <item>@string/month_error</item>
+    </string-array>
+
     <string name="month_jan">JAN</string>
     <string name="month_feb">FEB</string>
     <string name="month_mar">MAR</string>
@@ -33,4 +50,18 @@
     <string name="choose_gallery">Choose from Gallery</string>
     <string name="select_option_profile_image">Select option</string>
     <string name="save_profile">Profile changes have been saved</string>
+    <string name="collection">Collection</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="want_to_play">Want to play</string>
+    <string name="text_number_games">Number games</string>
+    <string name="_0" translatable="false">0</string>
+    <string name="board_game_title">Board Game Title</string>
+    <string name="year_and_month_of_purchase">Year and month of purchase</string>
+    <string name="my_score">My score</string>
+    <string name="new_game_in_collection_default_value">New My Game</string>
+    <string name="remove_element_from_my_collectoin">Remove a game from my collection</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="i_am_sure">I\'m sure!</string>
+    <string name="i_changed">I changed!</string>
+    <string name="button_test_crash">Test Crash</string>
 </resources>

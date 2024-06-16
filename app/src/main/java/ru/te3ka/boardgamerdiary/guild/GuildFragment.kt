@@ -30,6 +30,10 @@ class GuildFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.startAnimation(animationSlideRightIn)
+
+        binding.buttonTestCrash.setOnClickListener {
+            throw RuntimeException("Test crash Guild")
+        }
     }
 
     override fun onDestroy() {

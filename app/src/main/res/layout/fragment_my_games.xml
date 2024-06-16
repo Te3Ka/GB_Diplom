@@ -9,7 +9,10 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tableLayout_myGames"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
+        android:background="@color/violet"
+        app:tabSelectedTextColor="@color/yellow"
+        app:tabTextColor="@color/cardview_dark_background"
         app:tabMode="fixed"
         app:tabGravity="fill"
         tools:ignore="MissingConstraints" />
@@ -21,7 +24,9 @@
         app:layout_constraintTop_toBottomOf="@id/tableLayout_myGames"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent">
+    </androidx.viewpager.widget.ViewPager>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

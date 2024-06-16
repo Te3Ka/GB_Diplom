@@ -80,6 +80,7 @@ class ProfileFragment : Fragment() {
     }
 
     // Вставка фотографии из Галереи
+    // TODO: сохранение фотографии из Галереи работает немного неправильно.
     private val getContent =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
@@ -486,7 +487,6 @@ class ProfileFragment : Fragment() {
             putInt(KEY_MONTH, month)
             putInt(KEY_YEAR, year)
             putString(KEY_PHOTO_PATH, photoPath)
-            commit()
             apply()
             Toast.makeText(
                 requireContext(),
