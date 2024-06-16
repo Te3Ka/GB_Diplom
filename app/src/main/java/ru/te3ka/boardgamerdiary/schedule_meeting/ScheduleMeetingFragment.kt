@@ -1,10 +1,12 @@
 package ru.te3ka.boardgamerdiary.schedule_meeting
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -15,8 +17,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.google.firebase.messaging.FirebaseMessaging
 import ru.te3ka.boardgamerdiary.MainActivity
 import ru.te3ka.boardgamerdiary.R
@@ -57,6 +62,13 @@ class ScheduleMeetingFragment : Fragment() {
     }
 
     private fun createTestNotification() {
+
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // Если разрешение не предоставлено, запросите его у пользователя
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.POST_NOTIFICATIONS), NOTIFICATION_PERMISSION_REQUEST_CODE)
+            return
+        }
+
         val intent = Intent(requireContext(), MainActivity::class.java)
 
         val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
@@ -86,7 +98,23 @@ class ScheduleMeetingFragment : Fragment() {
         NotificationManagerCompat.from(requireContext()).notify(NOTIFICATION_ID, notification)
     }
 
+    @Deprecated("Deprecated in Java")
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                // Разрешение было предоставлено, создайте уведомление снова
+                createTestNotification()
+            } else {
+                // Разрешение было отклонено, обработайте это соответствующим образом
+                Toast.makeText(requireContext(), "Permission for notifications was denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
     companion object {
         private const val NOTIFICATION_ID = 10_000
+        private const val NOTIFICATION_PERMISSION_REQUEST_CODE = 1001
     }
 }
