@@ -45,7 +45,7 @@
     <string name="month_oct">OCT</string>
     <string name="month_nov">NOV</string>
     <string name="month_dec">DEC</string>
-    <string name="month_error">ERROR!</string>
+    <string name="month_error">UNKNOWN!</string>
     <string name="choose_camera">Take Photo</string>
     <string name="choose_gallery">Choose from Gallery</string>
     <string name="select_option_profile_image">Select option</string>
@@ -64,4 +64,6 @@
     <string name="i_am_sure">I\'m sure!</string>
     <string name="i_changed">I changed!</string>
     <string name="button_test_crash">Test Crash</string>
+    <string name="editText_yearPurchase">Year</string>
+    <string name="editText_monthPurchase">Month</string>
 </resources>

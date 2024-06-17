@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="120dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
 
     <ImageView
@@ -47,25 +48,33 @@
                     android:textSize="10sp"
                     />
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <ru.te3ka.boardgamerdiary.mygames.ReverseNumberPicker
-                        android:id="@+id/numberPicker_year_purchase"
-                        android:layout_width="match_parent"
+                    <EditText
+                        android:id="@+id/editText_yearOfGamePurchase"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:hint="@string/editText_yearPurchase"
+                        android:gravity="center"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/spinner_monthOfGamePurchase"
                         />
 
-                    <NumberPicker
-                        android:id="@+id/numberPicker_month_purchase"
-                        android:layout_width="match_parent"
+                    <Spinner
+                        android:id="@+id/spinner_monthOfGamePurchase"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/editText_yearOfGamePurchase"
+                        android:background="@drawable/spinner_month_purchase"
                         />
-                </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -84,11 +93,13 @@
                     android:textColor="@color/black"
                     />
 
-                <NumberPicker
-                    android:id="@+id/numberPicker_my_score_game_in_collection"
+                <EditText
+                    android:id="@+id/editText_my_score_game_in_collection"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="2"
+                    android:hint="@string/_0"
+                    android:gravity="center"
                     />
 
             </LinearLayout>
