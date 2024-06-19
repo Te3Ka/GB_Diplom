@@ -46,7 +46,9 @@
         tools:layout="@layout/fragment_my_games">
         <action
             android:id="@+id/action_fragment_my_games_to_fragment_main_menu"
-            app:destination="@id/fragment_main_menu" />
+            app:destination="@id/fragment_main_menu"
+            app:popUpTo="@id/fragment_my_games"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -56,7 +58,9 @@
         tools:layout="@layout/fragment_schedule_meeting">
         <action
             android:id="@+id/action_fragment_schedule_meeting_to_fragment_main_menu"
-            app:destination="@id/fragment_main_menu" />
+            app:destination="@id/fragment_main_menu"
+            app:popUpTo="@id/fragment_schedule_meeting"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -66,7 +70,9 @@
         tools:layout="@layout/fragment_guild">
         <action
             android:id="@+id/action_fragment_guild_to_fragment_main_menu"
-            app:destination="@id/fragment_main_menu" />
+            app:destination="@id/fragment_main_menu"
+            app:popUpTo="@id/fragment_guild"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -76,7 +82,9 @@
         tools:layout="@layout/fragment_statistics">
         <action
             android:id="@+id/action_fragment_statistics_to_fragment_main_menu"
-            app:destination="@id/fragment_main_menu" />
+            app:destination="@id/fragment_main_menu"
+            app:popUpTo="@id/fragment_statistics"
+            app:popUpToInclusive="true" />
     </fragment>
 
 

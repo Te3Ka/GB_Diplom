@@ -213,7 +213,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:hint="@string/hint_hobbies"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/button_editProfile"
         app:layout_constraintEnd_toEndOf="@id/editText_contact_email"
         app:layout_constraintStart_toStartOf="@id/editText_contact_email"
         app:layout_constraintTop_toBottomOf="@id/editText_contact_email"
@@ -224,4 +224,29 @@
         android:textColor="@color/black"
         android:padding="10dp"
         android:background="@drawable/ripple_edit_text_light_gray" />
+
+    <Button
+        android:id="@+id/button_saveProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/editText_dateOfBirth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/button_saveProfile"
+        app:layout_constraintEnd_toStartOf="@id/button_editProfile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <Button
+        android:id="@+id/button_editProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
