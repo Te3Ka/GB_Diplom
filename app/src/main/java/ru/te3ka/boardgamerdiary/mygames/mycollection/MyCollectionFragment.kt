@@ -1,4 +1,4 @@
-package ru.te3ka.boardgamerdiary.mygames
+package ru.te3ka.boardgamerdiary.mygames.mycollection
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -10,8 +10,6 @@ import androidx.appcompat.app.AlertDialog
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.databinding.FragmentMyCollectionBinding
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import ru.te3ka.boardgamerdiary.databinding.CustomElementListMyCollectionLayoutBinding
 
 class MyCollectionFragment : Fragment() {
     private var _binding: FragmentMyCollectionBinding? = null
@@ -41,7 +39,8 @@ class MyCollectionFragment : Fragment() {
             addNewDefaultValueGame()
         }
 
-        recycleAdapter.setOnItemLongClickListener(object: CustomMyCollectionListAdapter.OnItemLongClickListener {
+        recycleAdapter.setOnItemLongClickListener(object:
+            CustomMyCollectionListAdapter.OnItemLongClickListener {
             override fun onItemLongClick(position: Int) {
                 showDeleteDialog(position)
             }

@@ -66,4 +66,7 @@
     <string name="button_test_crash">Test Crash</string>
     <string name="editText_yearPurchase">Year</string>
     <string name="editText_monthPurchase">Month</string>
+    <string name="editText_boardgame_name">Boardgame Name</string>
+    <string name="contentDescription_add_boardgame_in_wishlist">Add boardgame in Wishlist</string>
+    <string name="descriptionContext_add_boardgame_in_want_to_play_list">Add boardgame in want to play list</string>
 </resources>

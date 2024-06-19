@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <EditText
+        android:id="@+id/editText_wantToPlayList_boardgameName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:hint="@string/editText_boardgame_name"
+        android:gravity="center"
+        android:inputType="textAutoCorrect"
+        android:textSize="20sp"
+        android:maxLines="1"
+        />
+
+
+</LinearLayout>

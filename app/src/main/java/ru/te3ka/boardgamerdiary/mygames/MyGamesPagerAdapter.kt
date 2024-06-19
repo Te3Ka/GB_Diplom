@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import ru.te3ka.boardgamerdiary.R
+import ru.te3ka.boardgamerdiary.mygames.mycollection.MyCollectionFragment
+import ru.te3ka.boardgamerdiary.mygames.wanttoplay.WantToPlayFragment
+import ru.te3ka.boardgamerdiary.mygames.wishlist.WishListFragment
 
 
 class MyGamesPagerAdapter(fm: FragmentManager,
@@ -13,7 +16,7 @@ class MyGamesPagerAdapter(fm: FragmentManager,
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> MyCollectionFragment()
-            1 -> WhishListFragment()
+            1 -> WishListFragment()
             2 -> WantToPlayFragment()
             else -> throw IllegalArgumentException("Invalid position")
         }

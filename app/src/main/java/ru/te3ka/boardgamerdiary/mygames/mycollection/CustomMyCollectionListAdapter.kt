@@ -1,4 +1,4 @@
-package ru.te3ka.boardgamerdiary.mygames
+package ru.te3ka.boardgamerdiary.mygames.mycollection
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.NumberPicker
 import android.widget.Spinner
 import androidx.recyclerview.widget.RecyclerView
 import ru.te3ka.boardgamerdiary.R
@@ -46,7 +45,7 @@ class CustomMyCollectionListAdapter(private val dataList: List<String>, private 
         fun onItemLongClick(position: Int)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomMyCollectionListAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.custom_element_list_my_collection_layout, parent, false)
         return ViewHolder(view)
     }

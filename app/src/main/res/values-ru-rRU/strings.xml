@@ -44,4 +44,7 @@
     <string name="i_changed">Я передумал!</string>
     <string name="editText_yearPurchase">Год</string>
     <string name="editText_monthPurchase">Месяц</string>
+    <string name="editText_boardgame_name">Название настолки</string>
+    <string name="contentDescription_add_boardgame_in_wishlist">Добавить игру в вишлист</string>
+    <string name="descriptionContext_add_boardgame_in_want_to_play_list">Добавить игру в список "Хочу сыграть"</string>
 </resources>

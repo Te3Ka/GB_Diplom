@@ -1,4 +1,4 @@
-package ru.te3ka.boardgamerdiary.mygames
+package ru.te3ka.boardgamerdiary.mygames.mycollection
 
 import androidx.lifecycle.ViewModel
 
