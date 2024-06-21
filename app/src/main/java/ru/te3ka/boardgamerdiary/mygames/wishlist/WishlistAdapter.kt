@@ -28,7 +28,6 @@ class WishlistAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val boardgameName: TextView = itemView.findViewById(R.id.editText_wishlist_boardgameName)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -50,7 +49,7 @@ class WishlistAdapter(
                 job?.cancel()
 
                 job = CoroutineScope(Dispatchers.Main).launch {
-                    delay(3000)
+                    delay(1500)
                     if (s != null && s.length >= 3) {
                         val updatedWishlist = item.copy(name = s.toString())
                         unUpdate(updatedWishlist)

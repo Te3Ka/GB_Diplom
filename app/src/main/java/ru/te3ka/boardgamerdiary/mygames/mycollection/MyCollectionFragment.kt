@@ -6,50 +6,80 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.databinding.FragmentMyCollectionBinding
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import ru.te3ka.boardgamerdiary.model.MyCollection
 
 class MyCollectionFragment : Fragment() {
     private var _binding: FragmentMyCollectionBinding? = null
     private val binding get() = _binding!!
 
-    private val dataList: MutableList<String> = mutableListOf()
-
     private val viewModel: MyCollectionViewModel by viewModels()
+    private val dataListMyCollection: MutableList<MyCollection> = mutableListOf()
+    private lateinit var recyclerAdapterMyCollection: MyCollectionListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMyCollectionBinding.inflate(inflater)
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val recyclerView = binding.recyclerViewMyCollectionList
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val recycleAdapter = CustomMyCollectionListAdapter(dataList, requireContext())
-        recyclerView.adapter = recycleAdapter
+        setupRecyclerView()
+        setupObserver()
 
         binding.buttonAddGameInCollection.setOnClickListener {
             addNewDefaultValueGame()
         }
+        return binding.root
+    }
 
-        recycleAdapter.setOnItemLongClickListener(object:
-            CustomMyCollectionListAdapter.OnItemLongClickListener {
-            override fun onItemLongClick(position: Int) {
-                showDeleteDialog(position)
-            }
+    private fun setupRecyclerView() {
+        recyclerAdapterMyCollection = MyCollectionListAdapter(emptyList(), { boardgame ->
+            viewModel.addMyCollection(boardgame)
+        }, { boardgame ->
+            viewModel.updateMyCollection(boardgame)
+        }, { boardgame ->
+            viewModel.deleteMyCollection(boardgame)
         })
+
+        binding.recyclerViewMyCollectionList.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = recyclerAdapterMyCollection
+        }
+    }
+
+    private fun setupObserver() {
+        lifecycleScope.launch {
+            viewModel.allMyCollection.collect { boardgames ->
+                recyclerAdapterMyCollection.updateData(boardgames)
+            }
+        }
     }
 
     private fun addNewDefaultValueGame() {
-        dataList.add("")
-        binding.recyclerViewMyCollectionList.adapter?.notifyItemInserted(dataList.size - 1)
+        val newGameInCollection = MyCollection(
+            name = "",
+            score = "",
+            numberOfGames = "",
+            yearOfPurchase = "",
+            monthOfPurchase = ""
+        )
+        viewModel.addMyCollection(
+            newGameInCollection.name,
+            newGameInCollection.score,
+            newGameInCollection.numberOfGames,
+            newGameInCollection.yearOfPurchase,
+            newGameInCollection.monthOfPurchase
+        )
+        Toast.makeText(requireContext(),
+            "Game in collection: ${newGameInCollection.id}",
+            Toast.LENGTH_SHORT).show()
     }
 
     private fun showDeleteDialog(position: Int) {
@@ -57,7 +87,7 @@ class MyCollectionFragment : Fragment() {
             .setTitle(requireContext().getString(R.string.remove_element_from_my_collectoin))
             .setMessage(requireContext().getString(R.string.are_you_sure))
             .setPositiveButton(requireContext().getString(R.string.i_am_sure)) { dialog, which ->
-                dataList.removeAt(position)
+                dataListMyCollection.removeAt(position)
                 binding.recyclerViewMyCollectionList.adapter?.notifyItemRemoved(position)
             }
             .setNegativeButton(requireContext().getString(R.string.i_changed), null)

@@ -69,4 +69,6 @@
     <string name="editText_boardgame_name">Boardgame Name</string>
     <string name="contentDescription_add_boardgame_in_wishlist">Add boardgame in Wishlist</string>
     <string name="descriptionContext_add_boardgame_in_want_to_play_list">Add boardgame in want to play list</string>
+    <string name="button_save">Save</string>
+    <string name="button_edit">Edit</string>
 </resources>

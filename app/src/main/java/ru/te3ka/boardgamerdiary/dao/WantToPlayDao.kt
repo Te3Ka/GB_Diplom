@@ -22,5 +22,4 @@ interface WantToPlayDao {
 
     @Delete
     suspend fun deleteWantToPlay(wantToPlay: WantToPlay)
-
 }

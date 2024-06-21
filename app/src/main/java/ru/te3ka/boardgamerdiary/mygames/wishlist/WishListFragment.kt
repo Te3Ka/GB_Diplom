@@ -24,7 +24,6 @@ class WishListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWhishListBinding.inflate(inflater, container, false)
-        val view = binding.root
 
         setupRecyclerView()
         setupObserver()
@@ -32,7 +31,7 @@ class WishListFragment : Fragment() {
         binding.buttonAddGameInWishlist.setOnClickListener {
             addNewItem()
         }
-        return view
+        return binding.root
     }
 
     private fun setupRecyclerView() {
@@ -59,6 +58,7 @@ class WishListFragment : Fragment() {
     private fun addNewItem() {
         val newItem = ""
         viewModel.addWishlist(newItem)
+
     }
 
     override fun onDestroyView() {

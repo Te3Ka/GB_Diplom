@@ -61,17 +61,18 @@
                         android:gravity="center"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/spinner_monthOfGamePurchase"
+                        app:layout_constraintEnd_toStartOf="@id/editText_monthOfGamePurchase"
                         />
 
-                    <Spinner
-                        android:id="@+id/spinner_monthOfGamePurchase"
+                    <EditText
+                        android:id="@+id/editText_monthOfGamePurchase"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        android:gravity="center"
+                        android:hint="@string/editText_monthPurchase"
                         app:layout_constraintStart_toEndOf="@id/editText_yearOfGamePurchase"
-                        android:background="@drawable/spinner_month_purchase"
                         />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
