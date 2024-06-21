@@ -56,7 +56,7 @@ class MainMenuFragment : Fragment() {
 
         // Переход на фрагмент "Гильдии"
         binding.buttonGuild.setOnClickListener {
-            viewModel.onNavigationButtonClicked(R.id.action_fragment_main_menu_to_fragment_guild)
+            viewModel.onNavigationButtonClicked(R.id.action_fragment_main_menu_to_fragment_contact)
         }
 
         // Переход на фрагмент "Статистика"

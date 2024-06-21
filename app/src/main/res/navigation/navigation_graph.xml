@@ -20,8 +20,8 @@
             android:id="@+id/action_fragment_main_menu_to_fragment_schedule_meeting"
             app:destination="@id/fragment_schedule_meeting" />
         <action
-            android:id="@+id/action_fragment_main_menu_to_fragment_guild"
-            app:destination="@id/fragment_guild" />
+            android:id="@+id/action_fragment_main_menu_to_fragment_contact"
+            app:destination="@id/fragment_contact" />
         <action
             android:id="@+id/action_fragment_main_menu_to_fragment_statistics"
             app:destination="@id/fragment_statistics" />
@@ -64,14 +64,14 @@
     </fragment>
 
     <fragment
-        android:id="@+id/fragment_guild"
-        android:name="ru.te3ka.boardgamerdiary.guild.GuildFragment"
+        android:id="@+id/fragment_contact"
+        android:name="ru.te3ka.boardgamerdiary.contact.ContactFragment"
         android:label="Guild"
-        tools:layout="@layout/fragment_guild">
+        tools:layout="@layout/fragment_contact">
         <action
             android:id="@+id/action_fragment_guild_to_fragment_main_menu"
             app:destination="@id/fragment_main_menu"
-            app:popUpTo="@id/fragment_guild"
+            app:popUpTo="@id/fragment_contact"
             app:popUpToInclusive="true" />
     </fragment>
 

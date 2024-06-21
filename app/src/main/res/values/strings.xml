@@ -63,7 +63,7 @@
     <string name="are_you_sure">Are you sure?</string>
     <string name="i_am_sure">I\'m sure!</string>
     <string name="i_changed">I changed!</string>
-    <string name="button_test_crash">Test Crash</string>
+    <string name="button_addNewContact">Add new contact</string>
     <string name="editText_yearPurchase">Year</string>
     <string name="editText_monthPurchase">Month</string>
     <string name="editText_boardgame_name">Boardgame Name</string>
@@ -71,4 +71,8 @@
     <string name="descriptionContext_add_boardgame_in_want_to_play_list">Add boardgame in want to play list</string>
     <string name="button_save">Save</string>
     <string name="button_edit">Edit</string>
+    <string name="editText_hint_new_contact_phone">New Contact Phone</string>
+    <string name="editText_hint_new_nickname">New nickname</string>
+    <string name="editText_hint_new_firstname">New firstname</string>
+    <string name="editText_hint_new_surname">New surname</string>
 </resources>
