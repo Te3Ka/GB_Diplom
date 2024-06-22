@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.databinding.FragmentMyCollectionBinding
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.te3ka.boardgamerdiary.model.MyCollection
 
@@ -40,7 +39,7 @@ class MyCollectionFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        recyclerAdapterMyCollection = MyCollectionListAdapter(emptyList(), { boardgame ->
+        recyclerAdapterMyCollection = MyCollectionListAdapter(mutableListOf(), { boardgame ->
             viewModel.addMyCollection(boardgame)
         }, { boardgame ->
             viewModel.updateMyCollection(boardgame)
@@ -57,7 +56,7 @@ class MyCollectionFragment : Fragment() {
     private fun setupObserver() {
         lifecycleScope.launch {
             viewModel.allMyCollection.collect { boardgames ->
-                recyclerAdapterMyCollection.updateData(boardgames)
+                recyclerAdapterMyCollection.updateData(boardgames.toMutableList())
             }
         }
     }

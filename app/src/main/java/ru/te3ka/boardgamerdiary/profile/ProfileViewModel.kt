@@ -80,9 +80,9 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         contactPhone: String,
         email: String,
         hobbies: String,
-        dayOfBirth: String,
-        monthOfBirth: String,
-        yearOfBirth: String,
+        dayOfBirth: Int,
+        monthOfBirth: Int,
+        yearOfBirth: Int,
         photoPath: String
     ) {
         viewModelScope.launch {

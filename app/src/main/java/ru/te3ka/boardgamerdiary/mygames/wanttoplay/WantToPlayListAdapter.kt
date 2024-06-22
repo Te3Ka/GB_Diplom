@@ -1,6 +1,7 @@
 package ru.te3ka.boardgamerdiary.mygames.wanttoplay
 
-import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -9,19 +10,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.model.WantToPlay
-import ru.te3ka.boardgamerdiary.model.Wishlist
-import ru.te3ka.boardgamerdiary.mygames.wishlist.WishlistAdapter
-import ru.te3ka.boardgamerdiary.mygames.wishlist.WishlistDiffCallback
 
 class WantToPlayListAdapter(
-    private var dataList: List<WantToPlay>,
+    private var wantToPlays: MutableList<WantToPlay>,
     private val unUpdate: (WantToPlay) -> Unit,
     private val onDelete: (WantToPlay) -> Unit
     ) :
@@ -38,24 +31,29 @@ class WantToPlayListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = dataList[position]
+        val item = wantToPlays[position]
         holder.boardgameName.text = item.name
 
         holder.boardgameName.addTextChangedListener(object : TextWatcher {
-            private var job: Job? = null
+            private val handler = Handler(Looper.getMainLooper())
+            private var runnable: Runnable? = null
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                job?.cancel()
-
-                job = CoroutineScope(Dispatchers.Main).launch {
-                    delay(3000)
-                    if (s != null && s.length >= 3) {
-                        val updatedWishlist = item.copy(name = s.toString())
-                        unUpdate(updatedWishlist)
+                runnable?.let { handler.removeCallbacks(it) }
+                runnable = Runnable {
+                    val position = holder.adapterPosition
+                    if (position != RecyclerView.NO_POSITION && position < wantToPlays.size) {
+                        val wantToPlay = wantToPlays[position]
+                        val updatedWantToLpay = when ("name") {
+                            "name" -> wantToPlay.copy(name = s?.toString() ?: "")
+                            else -> wantToPlay
+                        }
+                        unUpdate(updatedWantToLpay)
                     }
                 }
+                handler.postDelayed(runnable!!, 1500)
             }
         })
 
@@ -66,14 +64,14 @@ class WantToPlayListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return dataList.size
+        return wantToPlays.size
     }
 
-    fun updateData(newData: List<WantToPlay>) {
-        val diffCallback = WantToPlayDiffCallback(dataList, newData)
+    fun updateData(newData: MutableList<WantToPlay>) {
+        val diffCallback = WantToPlayDiffCallback(wantToPlays, newData)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
 
-        dataList = newData
+        wantToPlays = newData
         diffResult.dispatchUpdatesTo(this)
     }
 }

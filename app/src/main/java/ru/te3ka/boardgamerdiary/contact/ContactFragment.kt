@@ -46,7 +46,7 @@ class ContactFragment : Fragment() {
 
         val recyclerView = binding.recyclerViewContacts
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val recycleAdapter = ContactListAdapter(emptyList())
+        val recycleAdapter = ContactListAdapter(mutableListOf(), viewModel)
         recyclerView.adapter = recycleAdapter
 
         viewModel.allContacts.observe(viewLifecycleOwner, Observer { contacts ->

@@ -37,9 +37,9 @@ class ProfileFragment : Fragment() {
     private lateinit var inputMethodManager: InputMethodManager
     private val profileViewModel: ProfileViewModel by viewModels()
 
-    private var day: String = ""
-    private var month: String = ""
-    private var year: String = ""
+    private var day: Int = 31
+    private var month: Int = -1
+    private var year: Int = 2000
 
     private var nickname: String = ""
     private var firstName: String = ""
@@ -163,19 +163,19 @@ class ProfileFragment : Fragment() {
         binding.containerBirthday.setOnLongClickListener {
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 
-            if (year == "" && month == "" && day == "") {
+            if (year == 0 && month == -1 && day == 200) {
                 val calendar = Calendar.getInstance()
-                year = calendar.get(Calendar.YEAR).toString()
-                month = calendar.get(Calendar.MONTH).toString()
-                day = calendar.get(Calendar.DAY_OF_MONTH).toString()
+                year = calendar.get(Calendar.YEAR)
+                month = calendar.get(Calendar.MONTH)
+                day = calendar.get(Calendar.DAY_OF_MONTH)
             }
 
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 { _, year, monthOfYear, dayOfMonth ->
-                    this.day = dayOfMonth.toString()
-                    this.month = monthOfYear.toString()
-                    this.year = year.toString()
+                    this.day = dayOfMonth
+                    this.month = monthOfYear
+                    this.year = year
                     binding.textSelectDayOfBirth.text = dayOfMonth.toString()
                     binding.textSelectYearOfBirth.text = year.toString()
                     binding.textSelectMonthOfBirth.text = when (monthOfYear) {
@@ -194,7 +194,7 @@ class ProfileFragment : Fragment() {
                         else -> requireContext().getString(R.string.month_error)
                     }
                 },
-                year.toInt(), month.toInt(), day.toInt()
+                year, month, day
             )
             datePickerDialog.show()
             true
@@ -210,9 +210,9 @@ class ProfileFragment : Fragment() {
                 contactPhone = binding.editTextContactPhoneNumber.text.toString(),
                 email = binding.editTextContactEmail.text.toString(),
                 hobbies = binding.editTextHobbies.text.toString(),
-                dayOfBirth = binding.textSelectDayOfBirth.text.toString(),
-                monthOfBirth = binding.textSelectMonthOfBirth.text.toString(),
-                yearOfBirth = binding.textSelectYearOfBirth.text.toString(),
+                dayOfBirth = binding.textSelectDayOfBirth.text.toString().toInt(),
+                monthOfBirth = month,
+                yearOfBirth = binding.textSelectYearOfBirth.text.toString().toInt(),
                 photoPath = photoPath ?: ""
             )
             profileViewModel.navigateToMainMenu(this)
@@ -239,10 +239,23 @@ class ProfileFragment : Fragment() {
                 binding.editTextContactPhoneNumber.setText(it.contactPhone)
                 binding.editTextContactEmail.setText(it.email)
                 binding.editTextHobbies.setText(it.hobbies)
-                binding.textSelectDayOfBirth.text = it.dayOfBirth
-                binding.textSelectYearOfBirth.text = it.yearOfBirth
-                binding.textSelectMonthOfBirth.text = it.monthOfBirth
-
+                binding.textSelectDayOfBirth.text = it.dayOfBirth.toString()
+                binding.textSelectYearOfBirth.text = it.yearOfBirth.toString()
+                binding.textSelectMonthOfBirth.text = when (it.monthOfBirth) {
+                    0 -> requireContext().getString(R.string.month_jan)
+                    1 -> requireContext().getString(R.string.month_feb)
+                    2 -> requireContext().getString(R.string.month_mar)
+                    3 -> requireContext().getString(R.string.month_apr)
+                    4 -> requireContext().getString(R.string.month_may)
+                    5 -> requireContext().getString(R.string.month_jun)
+                    6 -> requireContext().getString(R.string.month_jul)
+                    7 -> requireContext().getString(R.string.month_aug)
+                    8 -> requireContext().getString(R.string.month_sep)
+                    9 -> requireContext().getString(R.string.month_oct)
+                    10 -> requireContext().getString(R.string.month_nov)
+                    11 -> requireContext().getString(R.string.month_dec)
+                    else -> requireContext().getString(R.string.month_error)
+                }
 
                 photoPath?.let { path ->
                     val file = File(path)

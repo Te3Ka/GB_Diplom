@@ -35,7 +35,7 @@ class WishListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        wishlistAdapter = WishlistAdapter(emptyList(), { boardgame ->
+        wishlistAdapter = WishlistAdapter(mutableListOf(), { boardgame ->
             viewModel.updateWishlist(boardgame)
         }, { boardgame ->
             viewModel.deleteWishlist(boardgame)
@@ -50,7 +50,7 @@ class WishListFragment : Fragment() {
     private fun setupObserver() {
         lifecycleScope.launch {
             viewModel.allWishlist.collect { boardgames ->
-                wishlistAdapter.updateData(boardgames)
+                wishlistAdapter.updateData(boardgames.toMutableList())
             }
         }
     }

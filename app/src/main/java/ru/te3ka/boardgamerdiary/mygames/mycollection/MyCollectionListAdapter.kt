@@ -1,5 +1,7 @@
 package ru.te3ka.boardgamerdiary.mygames.mycollection
 
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -7,21 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.model.MyCollection
-import ru.te3ka.boardgamerdiary.model.Wishlist
-import ru.te3ka.boardgamerdiary.mygames.wishlist.WishlistDiffCallback
 
 class MyCollectionListAdapter(
-    private var dataList: List<MyCollection>,
+    private var myCollections: MutableList<MyCollection>,
     private val unAdd: (MyCollection) -> Unit,
     private val unUpdate: (MyCollection) -> Unit,
     private val onDelete: (MyCollection) -> Unit
@@ -42,6 +36,37 @@ class MyCollectionListAdapter(
 
         init {
             itemView.setOnLongClickListener(this)
+
+            editTextTitle.addTextChangedListener(
+                createTextWatcher(
+                    "name",
+                    this
+                )
+            )
+            editTextNumberOfGames.addTextChangedListener(
+                createTextWatcher(
+                    "numberOfGames",
+                    this
+                )
+            )
+            editTextScores.addTextChangedListener(
+                createTextWatcher(
+                    "score",
+                    this
+                )
+            )
+            editTextYearPurchase.addTextChangedListener(
+                createTextWatcher(
+                    "yearOfPurchase",
+                    this
+                )
+            )
+            editTextMonthPurchase.addTextChangedListener(
+                createTextWatcher(
+                    "MonthOfPurchase",
+                    this
+                )
+            )
 //            setupSpinner()
         }
 
@@ -64,6 +89,39 @@ class MyCollectionListAdapter(
         fun onItemLongClick(position: Int)
     }
 
+    private fun createTextWatcher(fieldName: String, holder: ViewHolder): TextWatcher {
+        return object : TextWatcher {
+            private val handler = Handler(Looper.getMainLooper())
+            private var runnable: Runnable? = null
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                runnable?.let { handler.removeCallbacks(it) }
+                runnable = Runnable {
+                    val position = holder.adapterPosition
+                    if (position != RecyclerView.NO_POSITION && position < myCollections.size) {
+                        val myCollection = myCollections[position]
+                        val updatedMyCollection = when (fieldName) {
+                            "name" -> myCollection.copy(name = s?.toString() ?: "")
+                            "numberOfGames" -> myCollection.copy(numberOfGames = s?.toString() ?: "")
+                            "score" -> myCollection.copy(score = s?.toString() ?: "")
+                            "yearsOfPurchase" -> myCollection.copy(yearOfPurchase = s?.toString() ?: "")
+                            "monthOfPurchased" -> myCollection.copy(monthOfPurchase = s?.toString() ?: "")
+                            else -> myCollection
+                        }
+                        unUpdate(updatedMyCollection)
+                    }
+                }
+                handler.postDelayed(runnable!!, 1500)
+            }
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.custom_element_list_my_collection_layout, parent, false)
@@ -71,85 +129,12 @@ class MyCollectionListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = dataList[position]
+        val item = myCollections[position]
         holder.editTextTitle.setText(item.name)
         holder.editTextScores.setText(item.score)
         holder.editTextNumberOfGames.setText(item.numberOfGames)
         holder.editTextYearPurchase.setText(item.yearOfPurchase)
         holder.editTextMonthPurchase.setText(item.monthOfPurchase)
-
-        holder.editTextTitle.addTextChangedListener(object : TextWatcher {
-            private var job: Job? = null
-            private var isUpdating = false
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                if (isUpdating) return
-
-                job?.cancel()
-                job = CoroutineScope(Dispatchers.Main).launch {
-                    delay(1500)
-                    Log.i("Changed id:", "${item.id}")
-                    if (s != null &&
-                        s.toString() != item.name &&
-                        s.length >= 3) {
-                        val updatedCollection = item.copy(name = s.toString())
-                        isUpdating = true
-                        unUpdate(updatedCollection)
-                        isUpdating = false
-                    }
-                }
-            }
-        })
-
-        holder.editTextScores.addTextChangedListener(object : TextWatcher {
-            private var job: Job? = null
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                job?.cancel()
-
-                job = CoroutineScope(Dispatchers.Main).launch {
-                    delay(1500)
-                    if (s != null) {
-                        val updatedCollection = item.copy(score = s.toString())
-                        unUpdate(updatedCollection)
-                    }
-                }
-            }
-
-        })
-
-        holder.editTextNumberOfGames.addTextChangedListener(object : TextWatcher {
-            private var job: Job? = null
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                job?.cancel()
-
-                job = CoroutineScope(Dispatchers.Main).launch {
-                    delay(1500)
-                    if (s != null && s.length >= 3) {
-                        val updatedCollection = item.copy(
-                            id = item.id,
-                            name = s.toString())
-                        unUpdate(updatedCollection)
-                    }
-                }
-            }
-        })
 
         /*
         val months = context.resources.getStringArray(R.array.months_array)
@@ -170,7 +155,7 @@ class MyCollectionListAdapter(
 
     fun addNewItem(item: MyCollection) {
         unAdd(item)
-        notifyItemInserted(dataList.size - 1)
+        notifyItemInserted(myCollections.size - 1)
     }
 
     fun setOnItemLongClickListener(listener: OnItemLongClickListener) {
@@ -178,14 +163,14 @@ class MyCollectionListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return dataList.size
+        return myCollections.size
     }
 
-    fun updateData(newData: List<MyCollection>) {
-        val diffCallback = MyCollectionDiffCallback(dataList, newData)
+    fun updateData(newData: MutableList<MyCollection>) {
+        val diffCallback = MyCollectionDiffCallback(myCollections, newData)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
 
-        dataList = newData
+        myCollections = newData
         diffResult.dispatchUpdatesTo(this)
     }
 }

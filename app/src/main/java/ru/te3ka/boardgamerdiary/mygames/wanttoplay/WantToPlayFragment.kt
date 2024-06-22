@@ -39,7 +39,7 @@ class WantToPlayFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        wantToPlayAdapter = WantToPlayListAdapter(emptyList(), { boardgame ->
+        wantToPlayAdapter = WantToPlayListAdapter(mutableListOf(), { boardgame ->
             viewModel.updateWantToPlay(boardgame)
         }, { boardgame ->
             viewModel.deleteWantToPlay(boardgame)
@@ -54,7 +54,7 @@ class WantToPlayFragment : Fragment() {
     private fun setupObserver() {
         lifecycleScope.launch {
             viewModel.allWantToPlay.collect { boardgames ->
-                wantToPlayAdapter.updateData(boardgames)
+                wantToPlayAdapter.updateData(boardgames.toMutableList())
             }
         }
     }
