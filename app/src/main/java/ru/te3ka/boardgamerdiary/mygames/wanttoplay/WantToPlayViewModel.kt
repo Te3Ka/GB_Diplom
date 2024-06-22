@@ -6,11 +6,11 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import ru.te3ka.boardgamerdiary.dao.WantToPlayDao
-import ru.te3ka.boardgamerdiary.db.WantToPlayDatabase
+import ru.te3ka.boardgamerdiary.db.BgdDatabase
 import ru.te3ka.boardgamerdiary.model.WantToPlay
 
 class WantToPlayViewModel(application: Application) : AndroidViewModel(application) {
-    private val wantToPlayDao: WantToPlayDao = WantToPlayDatabase.getWantToPlayDatabase(application).wantToPlatDao()
+    private val wantToPlayDao: WantToPlayDao = BgdDatabase.getDatabase(application).wantToPlayDao()
     val allWantToPlay: Flow<List<WantToPlay>> = wantToPlayDao.getAllWantToPlay()
 
     fun addWantToPlay(name: String) {

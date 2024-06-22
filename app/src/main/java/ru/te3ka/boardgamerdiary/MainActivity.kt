@@ -2,9 +2,11 @@ package ru.te3ka.boardgamerdiary
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -57,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             val profileDao = db.profileDao()
             val profileExists = profileDao.getProfile() != null
+            Log.i(TAG, "Profile start ${profileExists}")
 
             if (!profileExists) {
                 val contactDao = db.contactDao()

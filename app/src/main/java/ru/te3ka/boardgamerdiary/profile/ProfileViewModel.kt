@@ -14,7 +14,8 @@ import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import ru.te3ka.boardgamerdiary.R
-import ru.te3ka.boardgamerdiary.db.ProfileDatabase
+import ru.te3ka.boardgamerdiary.db.BgdDatabase
+import ru.te3ka.boardgamerdiary.model.Contact
 import ru.te3ka.boardgamerdiary.model.Profile
 import ru.te3ka.boardgamerdiary.repository.ProfileRepository
 import java.io.File
@@ -30,7 +31,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     val photoUri: LiveData<Uri?> get() = _photoUri
 
     init {
-        val profileDao = ProfileDatabase.getDatabase(application).profileDao()
+        val profileDao = BgdDatabase.getDatabase(application).profileDao()
         repository = ProfileRepository(profileDao)
         userProfile = repository.profile.asLiveData()
     }
@@ -72,7 +73,27 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         _photoUri.value = uri
     }
 
+    suspend fun getContactId(contactPhoneNumber: String) : Int {
+        return repository.getContactId(contactPhoneNumber)
+    }
+
+    suspend fun getMyCollectionId(contactPhoneNumber: String) : Int{
+        return repository.getMyCollectionId(contactPhoneNumber)
+    }
+
+    suspend fun getWishlistId(contactPhoneNumber: String) : Int {
+        return repository.getWishlistId(contactPhoneNumber)
+    }
+
+    suspend fun getWantToPlayId(contactPhoneNumber: String) : Int {
+        return repository.getWantToPlayId(contactPhoneNumber)
+    }
+
     fun saveProfile(
+        contactId: Int,
+        myCollectionId: Int,
+        wishlistId: Int,
+        wantToPlayId: Int,
         nickname: String,
         firstName: String,
         surname: String,
@@ -87,6 +108,10 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     ) {
         viewModelScope.launch {
             val profile = Profile(
+                contactId = contactId,
+                myCollectionId = myCollectionId,
+                wishlistId = wishlistId,
+                wantToPlayId = wantToPlayId,
                 nickname = nickname,
                 firstName = firstName,
                 surname = surname,

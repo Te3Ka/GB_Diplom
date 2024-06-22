@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.databinding.FragmentContactBinding
-import ru.te3ka.boardgamerdiary.db.ContactDatabase
+import ru.te3ka.boardgamerdiary.db.BgdDatabase
 import ru.te3ka.boardgamerdiary.model.Contact
 import ru.te3ka.boardgamerdiary.repository.ContactRepository
 
@@ -39,7 +39,7 @@ class ContactFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view.startAnimation(animationSlideRightIn)
 
-        val database = ContactDatabase.getContactDatabase(requireContext())
+        val database = BgdDatabase.getDatabase(requireContext())
         val repository = ContactRepository(database.contactDao())
         val viewModelFactory = ContactViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ContactViewModel::class.java)

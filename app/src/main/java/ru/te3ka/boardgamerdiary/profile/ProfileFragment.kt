@@ -2,12 +2,14 @@ package ru.te3ka.boardgamerdiary.profile
 
 import android.Manifest
 import android.app.DatePickerDialog
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +24,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.databinding.FragmentProfileBinding
 import java.io.File
@@ -36,6 +41,7 @@ class ProfileFragment : Fragment() {
     private lateinit var animationSlideLeftOut: Animation
     private lateinit var inputMethodManager: InputMethodManager
     private val profileViewModel: ProfileViewModel by viewModels()
+    private val viewModelScope = CoroutineScope(Dispatchers.Main)
 
     private var day: Int = 31
     private var month: Int = -1
@@ -85,6 +91,7 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater)
         animationSlideRightIn = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_right_in)
         animationSlideLeftOut = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_left_out)
+
         allEditTextFalseFocusable()
 
         photoPath?.let {
@@ -202,20 +209,31 @@ class ProfileFragment : Fragment() {
 
         binding.buttonSaveProfile.setOnClickListener {
             view.startAnimation(animationSlideLeftOut)
-            profileViewModel.saveProfile(
-                nickname = binding.editTextNickname.text.toString(),
-                firstName = binding.editTextFirstName.text.toString(),
-                surname = binding.editTextSurname.text.toString(),
-                city = binding.editTextCity.text.toString(),
-                contactPhone = binding.editTextContactPhoneNumber.text.toString(),
-                email = binding.editTextContactEmail.text.toString(),
-                hobbies = binding.editTextHobbies.text.toString(),
-                dayOfBirth = binding.textSelectDayOfBirth.text.toString().toInt(),
-                monthOfBirth = month,
-                yearOfBirth = binding.textSelectYearOfBirth.text.toString().toInt(),
-                photoPath = photoPath ?: ""
-            )
-            profileViewModel.navigateToMainMenu(this)
+            viewModelScope.launch {
+                val contactId = profileViewModel.getContactId(contactPhoneNumber)
+                val myCollectionId = profileViewModel.getMyCollectionId(contactPhoneNumber)
+                val wishlistId = profileViewModel.getWishlistId(contactPhoneNumber)
+                val wantToPlayId = profileViewModel.getWantToPlayId(contactPhoneNumber)
+
+                profileViewModel.saveProfile(
+                    contactId = contactId,
+                    myCollectionId = myCollectionId,
+                    wishlistId = wishlistId,
+                    wantToPlayId = wantToPlayId,
+                    nickname = binding.editTextNickname.text.toString(),
+                    firstName = binding.editTextFirstName.text.toString(),
+                    surname = binding.editTextSurname.text.toString(),
+                    city = binding.editTextCity.text.toString(),
+                    contactPhone = binding.editTextContactPhoneNumber.text.toString(),
+                    email = binding.editTextContactEmail.text.toString(),
+                    hobbies = binding.editTextHobbies.text.toString(),
+                    dayOfBirth = binding.textSelectDayOfBirth.text.toString().toInt(),
+                    monthOfBirth = month,
+                    yearOfBirth = binding.textSelectYearOfBirth.text.toString().toInt(),
+                    photoPath = photoPath ?: ""
+                )
+                profileViewModel.navigateToMainMenu(this@ProfileFragment)
+            }
         }
 
         profileViewModel.getProfile().observe(viewLifecycleOwner) { profile ->

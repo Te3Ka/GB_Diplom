@@ -7,11 +7,11 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import ru.te3ka.boardgamerdiary.dao.WishlistDao
-import ru.te3ka.boardgamerdiary.db.WishlistDatabase
+import ru.te3ka.boardgamerdiary.db.BgdDatabase
 import ru.te3ka.boardgamerdiary.model.Wishlist
 
 class WishListViewModel(application: Application) : AndroidViewModel(application) {
-    private val wishlistDao: WishlistDao = WishlistDatabase.getWishlistDatabase(application).wishlistDao()
+    private val wishlistDao: WishlistDao = BgdDatabase.getDatabase(application).wishlistDao()
     val allWishlist: Flow<List<Wishlist>> = wishlistDao.getAllWishlist()
 
     fun addWishlist(name: String) {

@@ -22,4 +22,16 @@ interface ProfileDao {
 
     @Delete
     suspend fun deleteProfile(profile: Profile)
+
+    @Query("SELECT contactId FROM profile WHERE contactPhone =:contactPhoneNumber")
+    suspend fun getContactId(contactPhoneNumber: String): Int
+
+    @Query("SELECT myCollectionId FROM profile WHERE contactPhone =:contactPhoneNumber")
+    suspend fun getMyCollectionId(contactPhoneNumber: String): Int
+
+    @Query("SELECT wishlistId FROM profile WHERE contactPhone =:contactPhoneNumber")
+    suspend fun getWishListId(contactPhoneNumber: String): Int
+
+    @Query("SELECT wantToPlayId FROM profile WHERE contactPhone =:contactPhoneNumber")
+    suspend fun getWantToPlayId(contactPhoneNumber: String): Int
 }
