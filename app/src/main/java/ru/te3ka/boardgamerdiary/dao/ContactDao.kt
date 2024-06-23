@@ -26,4 +26,7 @@ interface ContactDao {
 
     @Delete
     suspend fun deleteContact(contact: Contact)
+
+    @Query("SELECT * FROM contacts WHERE id =:contactId")
+    suspend fun getContactById(contactId: Int): Contact?
 }

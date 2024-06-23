@@ -42,5 +42,16 @@ abstract class BgdDatabase : RoomDatabase() {
                 instance
             }
         }
+
+        private fun doesDatabaseExist(context: Context, dbName: String): Boolean {
+            val dbFile = context.getDatabasePath(dbName)
+            return dbFile.exists()
+        }
+
+        fun initializeDatabase(context: Context) {
+            if (!doesDatabaseExist(context, "bgd_database")) {
+                getDatabase(context)
+            }
+        }
     }
 }

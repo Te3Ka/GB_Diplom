@@ -16,7 +16,10 @@ import kotlinx.coroutines.launch
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.db.BgdDatabase
 import ru.te3ka.boardgamerdiary.model.Contact
+import ru.te3ka.boardgamerdiary.model.MyCollection
 import ru.te3ka.boardgamerdiary.model.Profile
+import ru.te3ka.boardgamerdiary.model.WantToPlay
+import ru.te3ka.boardgamerdiary.model.Wishlist
 import ru.te3ka.boardgamerdiary.repository.ProfileRepository
 import java.io.File
 import java.text.SimpleDateFormat
@@ -25,15 +28,22 @@ import java.util.Locale
 
 class ProfileViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: ProfileRepository
-    val userProfile: LiveData<Profile?>
+    private val _userProfile = MutableLiveData<Profile?>()
+    val userProfile: LiveData<Profile?> get() = _userProfile
 
     private val _photoUri = MutableLiveData<Uri?>()
     val photoUri: LiveData<Uri?> get() = _photoUri
 
     init {
         val profileDao = BgdDatabase.getDatabase(application).profileDao()
-        repository = ProfileRepository(profileDao)
-        userProfile = repository.profile.asLiveData()
+        repository = ProfileRepository(
+            profileDao
+        )
+        viewModelScope.launch {
+            repository.profile.collect { profile ->
+                _userProfile.value = profile
+            }
+        }
     }
 
     fun insert(profile: Profile) = viewModelScope.launch {
@@ -46,15 +56,6 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
 
     fun delete(profile: Profile) = viewModelScope.launch {
         repository.delete(profile)
-    }
-
-    fun getProfile(): LiveData<Profile?> {
-        val profileLiveData = MutableLiveData<Profile?>()
-        viewModelScope.launch {
-            val profile = repository.profile.firstOrNull()
-            profileLiveData.postValue(profile)
-        }
-        return profileLiveData
     }
 
     fun navigateToMainMenu(profileFragment: ProfileFragment) {
@@ -73,27 +74,11 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         _photoUri.value = uri
     }
 
-    suspend fun getContactId(contactPhoneNumber: String) : Int {
-        return repository.getContactId(contactPhoneNumber)
-    }
-
-    suspend fun getMyCollectionId(contactPhoneNumber: String) : Int{
-        return repository.getMyCollectionId(contactPhoneNumber)
-    }
-
-    suspend fun getWishlistId(contactPhoneNumber: String) : Int {
-        return repository.getWishlistId(contactPhoneNumber)
-    }
-
-    suspend fun getWantToPlayId(contactPhoneNumber: String) : Int {
-        return repository.getWantToPlayId(contactPhoneNumber)
-    }
-
     fun saveProfile(
-        contactId: Int,
-        myCollectionId: Int,
-        wishlistId: Int,
-        wantToPlayId: Int,
+        contactId: Int?,
+        myCollectionId : Int?,
+        wishlistId : Int?,
+        wantToPlayId : Int?,
         nickname: String,
         firstName: String,
         surname: String,
@@ -107,7 +92,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         photoPath: String
     ) {
         viewModelScope.launch {
-            val profile = Profile(
+            val updateProfile = Profile(
                 contactId = contactId,
                 myCollectionId = myCollectionId,
                 wishlistId = wishlistId,
@@ -124,7 +109,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
                 yearOfBirth = yearOfBirth,
                 photoPath = photoPath
             )
-            insert(profile)
+            insert(updateProfile)
         }
     }
 

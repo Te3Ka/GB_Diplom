@@ -59,7 +59,6 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             val profileDao = db.profileDao()
             val profileExists = profileDao.getProfile() != null
-            Log.i(TAG, "Profile start ${profileExists}")
 
             if (!profileExists) {
                 val contactDao = db.contactDao()

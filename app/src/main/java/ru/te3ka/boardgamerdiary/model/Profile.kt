@@ -14,10 +14,10 @@ import androidx.room.PrimaryKey
 )
 data class Profile(
     @PrimaryKey(autoGenerate = false) val contactPhone: String,
-    val contactId: Int,
-    val myCollectionId: Int,
-    val wantToPlayId: Int,
-    val wishlistId: Int,
+    val contactId: Int?,
+    val myCollectionId: Int?,
+    val wantToPlayId: Int?,
+    val wishlistId: Int?,
     val nickname: String,
     val firstName: String,
     val surname: String,

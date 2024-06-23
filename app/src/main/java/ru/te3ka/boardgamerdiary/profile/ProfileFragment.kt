@@ -27,6 +27,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.te3ka.boardgamerdiary.MainActivity
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.databinding.FragmentProfileBinding
 import java.io.File
@@ -59,21 +60,23 @@ class ProfileFragment : Fragment() {
     private var photoUri: Uri? = null
     private var photoPath: String? = null
 
-    private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let {
-            profileViewModel.updatePhotoUri(it)
-            Glide.with(this).load(uri).into(binding.imageProfile)
-            photoPath = getRealPathFromURI(requireContext(), uri)
+    private val getContent =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let {
+                profileViewModel.updatePhotoUri(it)
+                Glide.with(this).load(uri).into(binding.imageProfile)
+                photoPath = getRealPathFromURI(requireContext(), uri)
+            }
         }
-    }
 
-    private val takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { success: Boolean ->
-        if (success) {
-            profileViewModel.updatePhotoUri(photoUri!!)
-            Glide.with(this).load(photoFile).into(binding.imageProfile)
-            photoPath = photoFile.toString()
+    private val takePicture =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { success: Boolean ->
+            if (success) {
+                profileViewModel.updatePhotoUri(photoUri!!)
+                Glide.with(this).load(photoFile).into(binding.imageProfile)
+                photoPath = photoFile.toString()
+            }
         }
-    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -89,8 +92,10 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater)
-        animationSlideRightIn = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_right_in)
-        animationSlideLeftOut = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_left_out)
+        animationSlideRightIn =
+            AnimationUtils.loadAnimation(requireContext(), R.anim.slide_right_in)
+        animationSlideLeftOut =
+            AnimationUtils.loadAnimation(requireContext(), R.anim.slide_left_out)
 
         allEditTextFalseFocusable()
 
@@ -128,7 +133,8 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view.startAnimation(animationSlideRightIn)
 
-        inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         binding.buttonProfileBackToMainMenu.setOnClickListener {
             view.startAnimation(animationSlideLeftOut)
@@ -136,8 +142,16 @@ class ProfileFragment : Fragment() {
         }
 
         binding.buttonEditImageProfile.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_REQUEST_CODE)
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.CAMERA
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(Manifest.permission.CAMERA),
+                    CAMERA_PERMISSION_REQUEST_CODE
+                )
             }
             val options = arrayOf(
                 requireContext().getString(R.string.choose_camera),
@@ -149,9 +163,14 @@ class ProfileFragment : Fragment() {
                     when (which) {
                         0 -> {
                             photoFile = profileViewModel.createImageFile(requireContext())
-                            photoUri = FileProvider.getUriForFile(requireContext(), "ru.te3ka.boardgamerdiary.fileprovider", photoFile!!)
+                            photoUri = FileProvider.getUriForFile(
+                                requireContext(),
+                                "ru.te3ka.boardgamerdiary.fileprovider",
+                                photoFile!!
+                            )
                             takePicture.launch(photoUri)
                         }
+
                         1 -> getContent.launch("image/*")
                     }
                     dialog.dismiss()
@@ -159,13 +178,41 @@ class ProfileFragment : Fragment() {
                 .show()
         }
 
-        setupEditTextListener(binding.editTextNickname) { profileViewModel.showToastHelpEditField(requireContext()) }
-        setupEditTextListener(binding.editTextFirstName) { profileViewModel.showToastHelpEditField(requireContext()) }
-        setupEditTextListener(binding.editTextSurname) { profileViewModel.showToastHelpEditField(requireContext()) }
-        setupEditTextListener(binding.editTextCity) { profileViewModel.showToastHelpEditField(requireContext()) }
-        setupEditTextListener(binding.editTextContactPhoneNumber) { profileViewModel.showToastHelpEditField(requireContext()) }
-        setupEditTextListener(binding.editTextContactEmail) { profileViewModel.showToastHelpEditField(requireContext()) }
-        setupEditTextListener(binding.editTextHobbies) { profileViewModel.showToastHelpEditField(requireContext()) }
+        setupEditTextListener(binding.editTextNickname) {
+            profileViewModel.showToastHelpEditField(
+                requireContext()
+            )
+        }
+        setupEditTextListener(binding.editTextFirstName) {
+            profileViewModel.showToastHelpEditField(
+                requireContext()
+            )
+        }
+        setupEditTextListener(binding.editTextSurname) {
+            profileViewModel.showToastHelpEditField(
+                requireContext()
+            )
+        }
+        setupEditTextListener(binding.editTextCity) {
+            profileViewModel.showToastHelpEditField(
+                requireContext()
+            )
+        }
+        setupEditTextListener(binding.editTextContactPhoneNumber) {
+            profileViewModel.showToastHelpEditField(
+                requireContext()
+            )
+        }
+        setupEditTextListener(binding.editTextContactEmail) {
+            profileViewModel.showToastHelpEditField(
+                requireContext()
+            )
+        }
+        setupEditTextListener(binding.editTextHobbies) {
+            profileViewModel.showToastHelpEditField(
+                requireContext()
+            )
+        }
 
         binding.containerBirthday.setOnLongClickListener {
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
@@ -210,10 +257,10 @@ class ProfileFragment : Fragment() {
         binding.buttonSaveProfile.setOnClickListener {
             view.startAnimation(animationSlideLeftOut)
             viewModelScope.launch {
-                val contactId = profileViewModel.getContactId(contactPhoneNumber)
-                val myCollectionId = profileViewModel.getMyCollectionId(contactPhoneNumber)
-                val wishlistId = profileViewModel.getWishlistId(contactPhoneNumber)
-                val wantToPlayId = profileViewModel.getWantToPlayId(contactPhoneNumber)
+                val contactId = profileViewModel.userProfile.value?.contactId
+                val myCollectionId = profileViewModel.userProfile.value?.myCollectionId
+                val wishlistId = profileViewModel.userProfile.value?.wishlistId
+                val wantToPlayId = profileViewModel.userProfile.value?.wantToPlayId
 
                 profileViewModel.saveProfile(
                     contactId = contactId,
@@ -236,7 +283,7 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        profileViewModel.getProfile().observe(viewLifecycleOwner) { profile ->
+        profileViewModel.userProfile.observe(viewLifecycleOwner) { profile ->
             profile?.let {
                 nickname = it.nickname
                 firstName = it.firstName
