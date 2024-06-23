@@ -6,22 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".schedule_meeting.ScheduleMeetingFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Schedule Meeting"
+    <Button
+        android:id="@+id/button_invitationMeeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_invitation_a_meeting"
+        app:layout_constraintBottom_toTopOf="@id/button_viewMeetings"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button_sendPush"
+        android:id="@+id/button_viewMeetings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send Push"
+        android:text="@string/button_view_meetings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/button_invitationMeeting" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package ru.te3ka.boardgamerdiary.schedule_meeting
+package ru.te3ka.boardgamerdiary.schedule_meeting.invitation
 
 import android.Manifest
 import android.app.PendingIntent
@@ -6,73 +6,50 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.google.firebase.messaging.FirebaseMessaging
 import ru.te3ka.boardgamerdiary.MainActivity
 import ru.te3ka.boardgamerdiary.R
-import ru.te3ka.boardgamerdiary.databinding.FragmentScheduleMeetingBinding
+import ru.te3ka.boardgamerdiary.databinding.FragmentScheduleMeetingInvitationBinding
+import ru.te3ka.boardgamerdiary.schedule_meeting.ScheduleMeetingFragment
+import ru.te3ka.boardgamerdiary.schedule_meeting.ScheduleMeetingFragment.Companion
 
-class ScheduleMeetingFragment : Fragment() {
-    private var _binding: FragmentScheduleMeetingBinding? = null
+class InvitationFragment : Fragment() {
+    private var _binding: FragmentScheduleMeetingInvitationBinding? = null
     private val binding get() = _binding!!
-    private lateinit var animationSlideRightIn: Animation
-
-    private lateinit var viewModel: ScheduleMeetingViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentScheduleMeetingBinding.inflate(inflater)
-        animationSlideRightIn =
-            AnimationUtils.loadAnimation(requireContext(), R.anim.slide_right_in)
+        _binding = FragmentScheduleMeetingInvitationBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.startAnimation(animationSlideRightIn)
 
-        viewModel = ViewModelProvider(requireActivity()).get(ScheduleMeetingViewModel::class.java)
-
-        binding.buttonInvitationMeeting.setOnClickListener {
-            val navController = findNavController()
-            navController.navigate(R.id.action_fragment_schedule_meeting_to_fragment_schedule_meeting_invitation)
-        }
-
-        binding.buttonViewMeetings.setOnClickListener {
-            createTestNotification()
-        }
-
-        FirebaseMessaging.getInstance().token.addOnCompleteListener {
-            Log.d("Token", it.result)
+        binding.buttonSendInvitation.setOnClickListener {
+            createNotification()
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
-    private fun createTestNotification() {
-
+    private fun createNotification() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // Если разрешение не предоставлено, запросите его у пользователя
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.POST_NOTIFICATIONS), NOTIFICATION_PERMISSION_REQUEST_CODE)
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                NOTIFICATION_PERMISSION_REQUEST_CODE
+            )
             return
         }
 
@@ -93,16 +70,27 @@ class ScheduleMeetingFragment : Fragment() {
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
 
+        val messageTitle = "BoardGamerDiary Invitation"
+        val messageBody = "Пришло приглашение на встречу" +
+                " ${binding.editTextDayWhensMeeting.text}/${binding.editTextMonthWhensMeeting.text}/${binding.editTextYearWhensMeeting.text}" +
+                " в ${binding.editTextWheresMeeting.text}" +
+                " с ${binding.editTextWhosMeetingWith.text}" +
+                " и будем играть в ${binding.editTextWhatAreWePlaying.text}!"
+
         val notification = NotificationCompat.Builder(requireContext(), MainActivity.NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(R.drawable.button_ic_schedule_meeting)
-            .setContentTitle("Test message from BoardGamerDiary")
-            .setContentText("Это тестовое сообщение из приложения \"Дневник настольщика\"")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentTitle(messageTitle)
+            .setContentText(messageBody)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .build()
-
         NotificationManagerCompat.from(requireContext()).notify(NOTIFICATION_ID, notification)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     @Deprecated("Deprecated in Java")
@@ -110,15 +98,12 @@ class ScheduleMeetingFragment : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                // Разрешение было предоставлено, создайте уведомление снова
-                createTestNotification()
+                createNotification()
             } else {
-                // Разрешение было отклонено, обработайте это соответствующим образом
                 Toast.makeText(requireContext(), "Permission for notifications was denied", Toast.LENGTH_SHORT).show()
             }
         }
     }
-
 
     companion object {
         private const val NOTIFICATION_ID = 10_000

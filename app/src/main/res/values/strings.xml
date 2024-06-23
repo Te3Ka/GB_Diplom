@@ -75,4 +75,17 @@
     <string name="editText_hint_new_nickname">New nickname</string>
     <string name="editText_hint_new_firstname">New firstname</string>
     <string name="editText_hint_new_surname">New surname</string>
+    <string name="button_invitation_a_meeting">Invitation a meeting</string>
+    <string name="button_view_meetings">View meetings</string>
+    <string name="textView_when_s_the_meeting">When\'s the meeting?</string>
+    <string name="editText_day">Day</string>
+    <string name="editText_month">Month</string>
+    <string name="editText_year">Year</string>
+    <string name="editText_where_s_the_meeting">Where\'s the meeting?</string>
+    <string name="editText_hint_please_write_the_name_of_the_meeting_place">Please write the name of the meeting place.</string>
+    <string name="textView_who_s_the_meeting_with">Who\'s the meeting with?</string>
+    <string name="editText_include_the_contacts_with_whom_to_meet">Include the contacts with whom to meet.</string>
+    <string name="editText_specify_the_games_to_be_played">Specify the games to be played.</string>
+    <string name="button_send_invitation">Send invitation</string>
+    <string name="textView_what_are_we_playing">What are we playing?</string>
 </resources>

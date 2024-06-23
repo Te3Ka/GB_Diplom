@@ -61,7 +61,20 @@
             app:destination="@id/fragment_main_menu"
             app:popUpTo="@id/fragment_schedule_meeting"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_fragment_schedule_meeting_to_fragment_schedule_meeting_invitation"
+            app:destination="@id/fragment_schedule_meeting_invitation"
+            app:popUpTo="@id/fragment_schedule_meeting"
+            app:popUpToInclusive="true"
+            />
     </fragment>
+
+    <fragment
+        android:id="@+id/fragment_schedule_meeting_invitation"
+        android:name="ru.te3ka.boardgamerdiary.schedule_meeting.invitation.InvitationFragment"
+        android:label="fragment_schedule_meeting_invitation"
+        tools:layout="@layout/fragment_schedule_meeting_invitation"
+        />
 
     <fragment
         android:id="@+id/fragment_contact"
@@ -86,6 +99,5 @@
             app:popUpTo="@id/fragment_statistics"
             app:popUpToInclusive="true" />
     </fragment>
-
 
 </navigation>

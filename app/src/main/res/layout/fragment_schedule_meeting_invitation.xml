@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/textView_whensMeeting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/textView_when_s_the_meeting"
+        android:gravity="center"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="10dp"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_whensMeeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/textView_whensMeeting"
+        app:layout_constraintStart_toStartOf="@id/textView_whensMeeting"
+        app:layout_constraintTop_toBottomOf="@id/textView_whensMeeting"
+        app:layout_constraintBottom_toTopOf="@id/textView_wheresMeeting">
+
+        <EditText
+            android:id="@+id/editText_dayWhensMeeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/editText_day"
+            android:inputType="number"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/editText_monthWhensMeeting"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editText_monthWhensMeeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginStart="4dp"
+            android:hint="@string/editText_month"
+            android:inputType="number"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/editText_dayWhensMeeting"
+            app:layout_constraintEnd_toStartOf="@+id/editText_yearWhensMeeting"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editText_yearWhensMeeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/editText_year"
+            android:inputType="number"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/editText_monthWhensMeeting"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView_wheresMeeting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/editText_where_s_the_meeting"
+        android:gravity="center"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout_whensMeeting"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/editText_wheresMeeting"
+        android:layout_margin="10dp"
+        />
+
+    <EditText
+        android:id="@+id/editText_wheresMeeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/textView_wheresMeeting"
+        app:layout_constraintEnd_toEndOf="@+id/textView_wheresMeeting"
+        app:layout_constraintTop_toBottomOf="@id/textView_wheresMeeting"
+        app:layout_constraintBottom_toTopOf="@id/textView_whosMeetingWith"
+        android:hint="@string/editText_hint_please_write_the_name_of_the_meeting_place"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:inputType="text"
+        android:maxLines="2"
+        />
+
+    <TextView
+        android:id="@+id/textView_whosMeetingWith"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/textView_who_s_the_meeting_with"
+        android:gravity="center"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/editText_wheresMeeting"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/editText_whosMeetingWith"
+        android:layout_margin="10dp"
+        />
+
+    <EditText
+        android:id="@+id/editText_whosMeetingWith"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/textView_whosMeetingWith"
+        app:layout_constraintEnd_toEndOf="@+id/textView_whosMeetingWith"
+        app:layout_constraintTop_toBottomOf="@id/textView_whosMeetingWith"
+        app:layout_constraintBottom_toTopOf="@id/textView_whatAreWePlaying"
+        android:hint="@string/editText_include_the_contacts_with_whom_to_meet"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:inputType="text"
+        android:maxLines="10"
+        />
+
+    <TextView
+        android:id="@+id/textView_whatAreWePlaying"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="@string/textView_what_are_we_playing"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_whosMeetingWith"
+        app:layout_constraintBottom_toTopOf="@id/editText_whatAreWePlaying"
+        />
+
+    <EditText
+        android:id="@+id/editText_whatAreWePlaying"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:hint="@string/editText_specify_the_games_to_be_played"
+
+        android:inputType="text"
+        android:maxLines="10"
+        app:layout_constraintBottom_toTopOf="@+id/button_sendInvitation"
+        app:layout_constraintEnd_toEndOf="@+id/textView_whatAreWePlaying"
+        app:layout_constraintStart_toStartOf="@+id/textView_whatAreWePlaying"
+        app:layout_constraintTop_toBottomOf="@id/textView_whatAreWePlaying" />
+
+    <Button
+        android:id="@+id/button_sendInvitation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_send_invitation"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="20dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

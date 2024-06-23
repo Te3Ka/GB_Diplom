@@ -49,4 +49,22 @@
     <string name="descriptionContext_add_boardgame_in_want_to_play_list">Добавить игру в список "Хочу сыграть"</string>
     <string name="button_save">Сохранить</string>
     <string name="button_edit">Редактировать</string>
+    <string name="editText_hint_new_contact_phone">Новый телефон контакта</string>
+    <string name="editText_hint_new_nickname">Новый никнейм</string>
+    <string name="editText_hint_new_firstname">Новое имя</string>
+    <string name="editText_hint_new_surname">Новая фамилия</string>
+    <string name="button_view_meetings">Показать встречи</string>
+    <string name="textView_when_s_the_meeting">Когда встреча?</string>
+    <string name="editText_day">День</string>
+    <string name="editText_month">Месяц</string>
+    <string name="editText_year">Год</string>
+    <string name="editText_where_s_the_meeting">Где встреча?</string>
+    <string name="editText_hint_please_write_the_name_of_the_meeting_place">Напишите название места встречи.</string>
+    <string name="textView_who_s_the_meeting_with">С кем встреча?</string>
+    <string name="editText_include_the_contacts_with_whom_to_meet">Укажите контакт, с которыми будет встреча.</string>
+    <string name="editText_specify_the_games_to_be_played">Укажите игры, в которые будете играть.</string>
+    <string name="button_send_invitation">Отправить приглашение</string>
+    <string name="button_invitation_a_meeting">Приглашение на встречу</string>
+    <string name="button_addNewContact">Добавить новый контакт</string>
+    <string name="textView_what_are_we_playing">Во что будем играть?</string>
 </resources>
