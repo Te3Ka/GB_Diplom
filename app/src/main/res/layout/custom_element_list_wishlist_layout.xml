@@ -10,7 +10,7 @@
         android:autofillHints=""
         android:hint="@string/editText_boardgame_name"
         android:gravity="center"
-        android:inputType="textAutoCorrect"
+        android:inputType="textCapSentences"
         android:textSize="20sp"
         android:maxLines="1"
         />

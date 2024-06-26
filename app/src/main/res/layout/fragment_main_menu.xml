@@ -29,6 +29,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@color/violet"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@id/button_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/light_grey"
+        android:gravity="center"
+        android:text="@string/textView_profile"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/button_profile"
+        app:layout_constraintStart_toStartOf="@+id/button_profile"
+        app:layout_constraintTop_toBottomOf="@+id/button_profile" />
+
     <ImageButton
         android:id="@+id/button_my_games"
         android:layout_width="150dp"
@@ -39,6 +62,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/button_profile"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/light_grey"
+        android:gravity="center"
+        android:text="@string/textView_myGames"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/button_my_games"
+        app:layout_constraintStart_toStartOf="@+id/button_my_games"
+        app:layout_constraintTop_toBottomOf="@+id/button_my_games" />
 
     <ImageButton
         android:id="@+id/button_schedule_meeting"
@@ -51,6 +86,18 @@
         app:layout_constraintStart_toStartOf="@id/button_profile"
         app:layout_constraintTop_toBottomOf="@+id/button_profile" />
 
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/light_grey"
+        android:gravity="center"
+        android:text="@string/textView_schedule_meeting"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/button_schedule_meeting"
+        app:layout_constraintStart_toStartOf="@+id/button_schedule_meeting"
+        app:layout_constraintTop_toBottomOf="@+id/button_schedule_meeting" />
+
     <ImageButton
         android:id="@+id/button_guild"
         android:layout_width="150dp"
@@ -62,6 +109,18 @@
         app:layout_constraintStart_toStartOf="@id/button_profile"
         app:layout_constraintTop_toBottomOf="@id/button_schedule_meeting" />
 
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/light_grey"
+        android:gravity="center"
+        android:text="@string/textView_friends"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/button_guild"
+        app:layout_constraintStart_toStartOf="@+id/button_guild"
+        app:layout_constraintTop_toBottomOf="@+id/button_guild" />
+
     <ImageButton
         android:id="@+id/button_statistics"
         android:layout_width="150dp"
@@ -72,5 +131,17 @@
         app:layout_constraintEnd_toEndOf="@id/button_my_games"
         app:layout_constraintStart_toStartOf="@id/button_my_games"
         app:layout_constraintTop_toBottomOf="@id/button_schedule_meeting" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/light_grey"
+        android:gravity="center"
+        android:text="@string/textView_statistics"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/button_statistics"
+        app:layout_constraintStart_toStartOf="@+id/button_statistics"
+        app:layout_constraintTop_toBottomOf="@+id/button_statistics" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

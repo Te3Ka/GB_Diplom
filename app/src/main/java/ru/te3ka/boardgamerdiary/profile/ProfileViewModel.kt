@@ -1,26 +1,27 @@
 package ru.te3ka.boardgamerdiary.profile
 
 import android.app.Application
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.db.BgdDatabase
-import ru.te3ka.boardgamerdiary.model.Contact
-import ru.te3ka.boardgamerdiary.model.MyCollection
 import ru.te3ka.boardgamerdiary.model.Profile
-import ru.te3ka.boardgamerdiary.model.WantToPlay
-import ru.te3ka.boardgamerdiary.model.Wishlist
+import ru.te3ka.boardgamerdiary.model.network_dataclasses.NetworkProfile
 import ru.te3ka.boardgamerdiary.repository.ProfileRepository
+import ru.te3ka.boardgamerdiary.service.RetrofitClient
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -110,7 +111,42 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
                 photoPath = photoPath
             )
             insert(updateProfile)
+            uploadProfile(converToNetworkProfile(updateProfile))
         }
+    }
+
+    private fun converToNetworkProfile(profile: Profile) : NetworkProfile {
+        return NetworkProfile(
+            contactPhone = profile.contactPhone,
+            contactId = profile.contactId,
+            myCollectionId = profile.myCollectionId,
+            wantToPlayId = profile.wantToPlayId,
+            wishlistId = profile.wishlistId,
+            nickname = profile.nickname,
+            firstName = profile.firstName,
+            surname = profile.surname,
+            city = profile.city,
+            email = profile.email,
+            hobbies = profile.hobbies,
+            dayOfBirth = profile.dayOfBirth,
+            monthOfBirth = profile.monthOfBirth,
+            yearOfBirth = profile.yearOfBirth,
+            photoPath = profile.photoPath
+        )
+    }
+
+    fun uploadProfile(networkProfile: NetworkProfile) {
+        RetrofitClient.apiService.uploadProfile(networkProfile).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.i(TAG, "Successful upload profile")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e(TAG, "Network error: ${t.message}")
+            }
+        })
     }
 
     fun createImageFile(context: Context): File {

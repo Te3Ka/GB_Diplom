@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/editText_contact_contactPhone"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/editText_hint_new_contact_phone"
             android:inputType="phone"
@@ -23,6 +22,7 @@
             android:padding="10dp"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@id/editText_contact_surname"
+            app:layout_constraintEnd_toStartOf="@id/editText_contact_firstName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/editText_contact_firstName" />
 
@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="@string/editText_hint_new_nickname"
+            android:inputType="textCapSentences"
             android:maxLines="1"
             android:textColor="@color/violet"
             android:textSize="22sp"
@@ -45,8 +46,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="@string/editText_hint_new_firstname"
-            android:textSize="15sp"
+            android:inputType="textCapSentences"
             android:maxLines="1"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="@id/editText_contact_nickname"
             app:layout_constraintStart_toEndOf="@+id/editText_contact_contactPhone"
             app:layout_constraintTop_toBottomOf="@id/editText_contact_nickname" />
@@ -55,24 +57,23 @@
             android:id="@+id/editText_contact_surname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            app:layout_constraintStart_toStartOf="@id/editText_contact_firstName"
-            app:layout_constraintEnd_toEndOf="@id/editText_contact_firstName"
-            app:layout_constraintTop_toBottomOf="@id/editText_contact_firstName"
-            android:hint="@string/editText_hint_new_surname"
             android:gravity="center"
+            android:hint="@string/editText_hint_new_surname"
+            android:inputType="textCapSentences"
+            android:maxLines="1"
             android:textSize="15sp"
-            />
+            app:layout_constraintEnd_toEndOf="@id/editText_contact_firstName"
+            app:layout_constraintStart_toStartOf="@id/editText_contact_firstName"
+            app:layout_constraintTop_toBottomOf="@id/editText_contact_firstName" />
 
         <View
             android:layout_width="0dp"
             android:layout_height="3sp"
-            android:background="@color/violet"
-            app:layout_constraintTop_toBottomOf="@id/editText_contact_surname"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="5dp"
-            />
+            android:background="@color/violet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editText_contact_surname" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

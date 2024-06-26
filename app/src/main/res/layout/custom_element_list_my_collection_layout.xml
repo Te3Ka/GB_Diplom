@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
 
     <ImageView
@@ -22,12 +22,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/board_game_title"
+            android:inputType="textCapSentences"
+            android:maxLines="1"
             android:textAlignment="center"
             android:textColor="@color/violet"
-            android:textSize="25sp"
-            android:inputType="text"
-            android:maxLines="1"
-            />
+            android:textSize="25sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,8 +44,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/year_and_month_of_purchase"
                     android:textAlignment="center"
-                    android:textSize="10sp"
-                    />
+                    android:textSize="10sp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -57,23 +55,23 @@
                         android:id="@+id/editText_yearOfGamePurchase"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:hint="@string/editText_yearPurchase"
                         android:gravity="center"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:hint="@string/editText_yearPurchase"
+                        android:inputType="number"
                         app:layout_constraintEnd_toStartOf="@id/editText_monthOfGamePurchase"
-                        />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
                         android:id="@+id/editText_monthOfGamePurchase"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
                         android:gravity="center"
                         android:hint="@string/editText_monthPurchase"
+                        android:inputType="number"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/editText_yearOfGamePurchase"
-                        />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
@@ -90,24 +88,19 @@
                     android:layout_weight="1"
                     android:text="@string/my_score"
                     android:textAlignment="center"
-                    android:textSize="12sp"
                     android:textColor="@color/black"
-                    />
+                    android:textSize="12sp" />
 
                 <EditText
                     android:id="@+id/editText_my_score_game_in_collection"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="2"
-                    android:hint="@string/_0"
+                    android:inputType="number"
                     android:gravity="center"
-                    />
-
+                    android:hint="@string/_0" />
             </LinearLayout>
-
-
         </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
@@ -123,8 +116,7 @@
             android:layout_weight="1"
             android:text="@string/text_number_games"
             android:textAlignment="center"
-            android:textColor="@color/black"
-            />
+            android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/editText_number_games"
@@ -133,9 +125,8 @@
             android:layout_weight="2"
             android:hint="@string/_0"
             android:inputType="number"
-            android:textAlignment="center"
-            android:textSize="25sp"
             android:maxLines="1"
-            />
+            android:textAlignment="center"
+            android:textSize="25sp" />
     </LinearLayout>
 </LinearLayout>

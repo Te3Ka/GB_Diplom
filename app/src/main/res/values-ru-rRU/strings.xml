@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Дневник Настольщика</string>
-    <string name="hint_new_nickname">Никнейм (Зажмите 2с)</string>
-    <string name="hint_new_first_name">Имя (Зажмите 2с)</string>
-    <string name="hint_new_surname">Фамилия (Зажмите 2с)</string>
+    <string name="hint_new_nickname">Никнейм</string>
+    <string name="hint_new_first_name">Имя</string>
+    <string name="hint_new_surname">Фамилия</string>
     <string name="text_day_of_birth">День</string>
     <string name="month_of_birth">Месяц</string>
     <string name="select_month_of_birth">ЯНВ</string>
     <string name="text_year_of_birth">Год рождения</string>
-    <string name="hint_home_city">Город (Заж. 2с)</string>
-    <string name="hint_contact_number">Телефон для связи (Зажмите 2с)</string>
-    <string name="hint_email">Электронная почта (Зажмите 2с)</string>
-    <string name="click_any_edit_text_field">Для редактирования поля удерживайте 2 секунды</string>
+    <string name="hint_home_city">Город</string>
+    <string name="hint_contact_number">Телефон для связи</string>
+    <string name="hint_email">Электронная почта</string>
+    <string name="click_any_edit_text_field">Для редактирования профиля нажмите внизу экрана кнопку \"Редактировать\"</string>
     <string name="hint_hobbies">Немного о себе.</string>
     <string name="month_jan">ЯНВ</string>
     <string name="month_feb">ФЕВ</string>
@@ -63,8 +63,13 @@
     <string name="textView_who_s_the_meeting_with">С кем встреча?</string>
     <string name="editText_include_the_contacts_with_whom_to_meet">Укажите контакт, с которыми будет встреча.</string>
     <string name="editText_specify_the_games_to_be_played">Укажите игры, в которые будете играть.</string>
-    <string name="button_send_invitation">Отправить приглашение</string>
+    <string name="button_send_invitation">Добавить в календарь</string>
     <string name="button_invitation_a_meeting">Приглашение на встречу</string>
     <string name="button_addNewContact">Добавить новый контакт</string>
     <string name="textView_what_are_we_playing">Во что будем играть?</string>
+    <string name="textView_profile">Профиль</string>
+    <string name="textView_myGames">Мои игры</string>
+    <string name="textView_schedule_meeting">Запланировать встречу</string>
+    <string name="textView_friends">Друзья</string>
+    <string name="textView_statistics">Статистика</string>
 </resources>

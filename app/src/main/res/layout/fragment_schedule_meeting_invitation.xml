@@ -91,9 +91,9 @@
         app:layout_constraintTop_toBottomOf="@id/textView_wheresMeeting"
         app:layout_constraintBottom_toTopOf="@id/textView_whosMeetingWith"
         android:hint="@string/editText_hint_please_write_the_name_of_the_meeting_place"
+        android:inputType="textCapSentences"
         android:gravity="center"
         android:layout_margin="10dp"
-        android:inputType="text"
         android:maxLines="2"
         />
 
@@ -120,9 +120,9 @@
         app:layout_constraintTop_toBottomOf="@id/textView_whosMeetingWith"
         app:layout_constraintBottom_toTopOf="@id/textView_whatAreWePlaying"
         android:hint="@string/editText_include_the_contacts_with_whom_to_meet"
+        android:inputType="textCapSentences"
         android:gravity="center"
         android:layout_margin="10dp"
-        android:inputType="text"
         android:maxLines="10"
         />
 
@@ -147,8 +147,7 @@
         android:layout_margin="10dp"
         android:gravity="center"
         android:hint="@string/editText_specify_the_games_to_be_played"
-
-        android:inputType="text"
+        android:inputType="textCapSentences"
         android:maxLines="10"
         app:layout_constraintBottom_toTopOf="@+id/button_sendInvitation"
         app:layout_constraintEnd_toEndOf="@+id/textView_whatAreWePlaying"
