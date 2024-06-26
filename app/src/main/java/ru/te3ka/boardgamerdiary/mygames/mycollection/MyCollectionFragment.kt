@@ -76,9 +76,6 @@ class MyCollectionFragment : Fragment() {
             newGameInCollection.yearOfPurchase,
             newGameInCollection.monthOfPurchase
         )
-        Toast.makeText(requireContext(),
-            "Game in collection: ${newGameInCollection.id}",
-            Toast.LENGTH_SHORT).show()
     }
 
     private fun showDeleteDialog(position: Int) {
