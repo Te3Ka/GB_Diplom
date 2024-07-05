@@ -12,6 +12,8 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.onesignal.OneSignal
+import com.onesignal.debug.LogLevel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,7 +32,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        createNotificationChannel()
+//        createNotificationChannel()
+
+        // Verbose Logging set to help debug issues, remove before releasing your app.
+        OneSignal.Debug.logLevel = LogLevel.VERBOSE
+
+        // OneSignal Initialization
+        OneSignal.initWithContext(this, ONESIGNAL_APP_ID)
+
+        // requestPermission will show the native Android notification permission prompt.
+        // NOTE: It's recommended to use a OneSignal In-App Message to prompt instead.
+        CoroutineScope(Dispatchers.IO).launch {
+            OneSignal.Notifications.requestPermission(false)
+        }
+
         setContentView(binding.root)
         initialiseProfile()
     }
@@ -121,5 +136,8 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val NOTIFICATION_CHANNEL_ID = "test_channel_id"
+        const val ONESIGNAL_APP_ID = "eaebefa6-a7a5-43be-a8eb-7b4acac282b7"
+        const val ONESIGNAL_REST_API_KEY = "ZmUzZWFkMTgtZjdiYy00NjEwLWJlZmUtM2RjMDVkZmMzNzM2"
+
     }
 }

@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt") version "2.0.0"
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    "com.onesignal.androidsdk.onesignal-gradle-plugin"
 }
 
 android {
@@ -74,4 +75,14 @@ dependencies {
 
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+
+    implementation("com.onesignal:OneSignal:[5.0.0, 5.99.99]")
+
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+
+    implementation("com.squareup.okhttp3:okhttp-urlconnection:4.9.3")
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.3"))
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+
+    implementation("com.google.code.gson:gson:2.10.1")
 }

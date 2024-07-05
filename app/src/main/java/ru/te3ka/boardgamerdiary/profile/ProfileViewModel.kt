@@ -12,17 +12,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.db.BgdDatabase
+import ru.te3ka.boardgamerdiary.fcmservice.FcmService
 import ru.te3ka.boardgamerdiary.model.Profile
 import ru.te3ka.boardgamerdiary.model.network_dataclasses.NetworkProfile
 import ru.te3ka.boardgamerdiary.repository.ProfileRepository
 import ru.te3ka.boardgamerdiary.service.RetrofitClient
 import java.io.File
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -60,11 +67,13 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun navigateToMainMenu(profileFragment: ProfileFragment) {
-        profileFragment.findNavController().navigate(R.id.action_fragment_profile_to_fragment_main_menu)
+        profileFragment.findNavController()
+            .navigate(R.id.action_fragment_profile_to_fragment_main_menu)
     }
 
     fun showToastHelpEditField(requireContext: Context) {
-        Toast.makeText(requireContext, R.string.click_any_edit_text_field, Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext, R.string.click_any_edit_text_field, Toast.LENGTH_SHORT)
+            .show()
     }
 
     fun showToast(context: Context) {
@@ -77,9 +86,9 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
 
     fun saveProfile(
         contactId: Int?,
-        myCollectionId : Int?,
-        wishlistId : Int?,
-        wantToPlayId : Int?,
+        myCollectionId: Int?,
+        wishlistId: Int?,
+        wantToPlayId: Int?,
         nickname: String,
         firstName: String,
         surname: String,
@@ -111,11 +120,11 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
                 photoPath = photoPath
             )
             insert(updateProfile)
-            uploadProfile(converToNetworkProfile(updateProfile))
+            uploadProfile(convertToNetworkProfile(updateProfile))
         }
     }
 
-    private fun converToNetworkProfile(profile: Profile) : NetworkProfile {
+    private fun convertToNetworkProfile(profile: Profile): NetworkProfile {
         return NetworkProfile(
             contactPhone = profile.contactPhone,
             contactId = profile.contactId,
@@ -136,21 +145,32 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun uploadProfile(networkProfile: NetworkProfile) {
-        RetrofitClient.apiService.uploadProfile(networkProfile).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.isSuccessful) {
-                    Log.i(TAG, "Successful upload profile")
-                }
+        Log.i(TAG, "Start push profile")
+        val requestBody =
+            Gson().toJson(networkProfile).toRequestBody("application/json; charset=UTF-8".toMediaTypeOrNull())
+        println(requestBody.toString())
+        val request = Request.Builder()
+            .url("http://192.168.31.193:8080/upload/profile/")// TODO: Тут должен быть сервер
+            .post(requestBody)
+            .addHeader("Content-Type", "application/json")
+            .build()
+
+        val client = OkHttpClient()
+        client.newCall(request).enqueue(object : okhttp3.Callback {
+            override fun onFailure(call: okhttp3.Call, e: IOException) {
+                e.printStackTrace()
             }
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.e(TAG, "Network error: ${t.message}")
+            override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+                if (response.isSuccessful)
+                    Log.i(TAG, "Send successful")
             }
         })
     }
 
     fun createImageFile(context: Context): File {
-        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val timeStamp: String =
+            SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile("JPEG_${timeStamp}_", ".jpg", storageDir)
     }
