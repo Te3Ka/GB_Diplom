@@ -25,6 +25,10 @@ import ru.te3ka.boardgamerdiary.MainActivity
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.databinding.FragmentScheduleMeetingBinding
 
+/**
+ * Фрагмент для планирования встреч.
+ * Позволяет пользователю отправлять приглашения на встречи и просматривать уведомления.
+ */
 class ScheduleMeetingFragment : Fragment() {
     private var _binding: FragmentScheduleMeetingBinding? = null
     private val binding get() = _binding!!
@@ -32,6 +36,13 @@ class ScheduleMeetingFragment : Fragment() {
 
     private lateinit var viewModel: ScheduleMeetingViewModel
 
+    /**
+     * Создает и возвращает вид фрагмента.
+     * @param inflater LayoutInflater для инфлейта макета.
+     * @param container Контейнер для размещения вида.
+     * @param savedInstanceState Сохраненные состояние при создании.
+     * @return Корневой вид фрагмента.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,6 +54,12 @@ class ScheduleMeetingFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Выполняется после создания вида фрагмента.
+     * Настраивает обработчики кликов для кнопок и получает токен Firebase.
+     * @param view Вид фрагмента.
+     * @param savedInstanceState Сохраненные состояние при создании.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.startAnimation(animationSlideRightIn)
@@ -63,11 +80,19 @@ class ScheduleMeetingFragment : Fragment() {
         }
     }
 
+    /**
+     * Освобождает ресурсы, связанные с привязкой макета, при уничтожении фрагмента.
+     */
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
 
+    /**
+     * Создает тестовое уведомление.
+     * Проверяет разрешение на отправку уведомлений и запрашивает его, если необходимо.
+     * Создает уведомление и отображает его.
+     */
     private fun createTestNotification() {
 
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
@@ -105,6 +130,14 @@ class ScheduleMeetingFragment : Fragment() {
         NotificationManagerCompat.from(requireContext()).notify(NOTIFICATION_ID, notification)
     }
 
+    /**
+     * Обрабатывает результат запроса разрешений.
+     * Если разрешение на отправку уведомлений предоставлено, создается уведомление.
+     * Если нет, отображается сообщение об отказе.
+     * @param requestCode Код запроса разрешения.
+     * @param permissions Массив разрешений.
+     * @param grantResults Массив результатов предоставленных разрешений.
+     */
     @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)

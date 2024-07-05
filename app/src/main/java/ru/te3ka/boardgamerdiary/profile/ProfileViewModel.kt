@@ -18,22 +18,21 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.db.BgdDatabase
-import ru.te3ka.boardgamerdiary.fcmservice.FcmService
 import ru.te3ka.boardgamerdiary.model.Profile
 import ru.te3ka.boardgamerdiary.model.network_dataclasses.NetworkProfile
 import ru.te3ka.boardgamerdiary.repository.ProfileRepository
-import ru.te3ka.boardgamerdiary.service.RetrofitClient
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+/**
+ * ViewModel для экрана профиля, наследуется от AndroidViewModel.
+ * Отвечает за управление состоянием профиля пользователя, сохранение и загрузку данных профиля.
+ */
 class ProfileViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: ProfileRepository
     private val _userProfile = MutableLiveData<Profile?>()
@@ -54,14 +53,26 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    /**
+     * Вставляет новый профиль в базу данных.
+     * @param profile Профиль пользователя, который нужно вставить.
+     */
     fun insert(profile: Profile) = viewModelScope.launch {
         repository.insert(profile)
     }
 
+    /**
+     * Удаляет профиль из базы данных.
+     * @param profile Профиль пользователя, который нужно удалить.
+     */
     fun update(profile: Profile) = viewModelScope.launch {
         repository.update(profile)
     }
 
+    /**
+     * Переходит к главному меню.
+     * @param profileFragment Фрагмент профиля для навигации.
+     */
     fun delete(profile: Profile) = viewModelScope.launch {
         repository.delete(profile)
     }
@@ -71,19 +82,41 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
             .navigate(R.id.action_fragment_profile_to_fragment_main_menu)
     }
 
+    /**
+     * Показывает всплывающее сообщение для помощи с полями редактирования.
+     * @param requireContext Контекст для отображения сообщения.
+     */
     fun showToastHelpEditField(requireContext: Context) {
         Toast.makeText(requireContext, R.string.click_any_edit_text_field, Toast.LENGTH_SHORT)
             .show()
     }
 
-    fun showToast(context: Context) {
-        Toast.makeText(context, "Wow!", Toast.LENGTH_SHORT).show()
-    }
-
+    /**
+     * Обновляет URI фотографии профиля.
+     * @param uri URI новой фотографии профиля.
+     */
     fun updatePhotoUri(uri: Uri) {
         _photoUri.value = uri
     }
 
+    /**
+     * Сохраняет профиль и загружает его на сервер.
+     * @param contactId Идентификатор контакта.
+     * @param myCollectionId Идентификатор коллекции.
+     * @param wishlistId Идентификатор списка желаемого.
+     * @param wantToPlayId Идентификатор списка желаемых игр.
+     * @param nickname Никнейм пользователя.
+     * @param firstName Имя пользователя.
+     * @param surname Фамилия пользователя.
+     * @param city Город пользователя.
+     * @param contactPhone Номер телефона пользователя.
+     * @param email Электронная почта пользователя.
+     * @param hobbies Хобби пользователя.
+     * @param dayOfBirth День рождения пользователя.
+     * @param monthOfBirth Месяц рождения пользователя.
+     * @param yearOfBirth Год рождения пользователя.
+     * @param photoPath Путь к фотографии профиля.
+     */
     fun saveProfile(
         contactId: Int?,
         myCollectionId: Int?,
@@ -124,6 +157,11 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    /**
+     * Преобразует объект Profile в NetworkProfile для отправки на сервер.
+     * @param profile Профиль пользователя.
+     * @return Объект NetworkProfile.
+     */
     private fun convertToNetworkProfile(profile: Profile): NetworkProfile {
         return NetworkProfile(
             contactPhone = profile.contactPhone,
@@ -144,6 +182,10 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         )
     }
 
+    /**
+     * Загружает профиль на сервер.
+     * @param networkProfile Профиль в формате NetworkProfile для отправки на сервер.
+     */
     fun uploadProfile(networkProfile: NetworkProfile) {
         Log.i(TAG, "Start push profile")
         val requestBody =
@@ -168,6 +210,11 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         })
     }
 
+    /**
+     * Создает файл изображения для хранения фотографии профиля.
+     * @param context Контекст приложения.
+     * @return Файл изображения.
+     */
     fun createImageFile(context: Context): File {
         val timeStamp: String =
             SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())

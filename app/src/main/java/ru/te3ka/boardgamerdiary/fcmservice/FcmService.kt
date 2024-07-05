@@ -1,32 +1,29 @@
 package ru.te3ka.boardgamerdiary.fcmservice
 
 import android.Manifest
-import android.content.ContentValues.TAG
 import android.content.pm.PackageManager
 import android.icu.text.SimpleDateFormat
-import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.google.gson.Gson
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
-import okhttp3.Response
 import ru.te3ka.boardgamerdiary.MainActivity
 import ru.te3ka.boardgamerdiary.R
-import ru.te3ka.boardgamerdiary.model.Profile
-import java.io.IOException
 import java.util.Date
 import java.util.Locale
 import kotlin.random.Random
 
+/**
+ * Сервис для обработки сообщений Firebase Cloud Messaging (FCM).
+ * Отвечает за получение сообщений и отображение уведомлений.
+ */
 class FcmService : FirebaseMessagingService() {
+    /**
+     * Обрабатывает входящее сообщение от Firebase.
+     * Создает и отображает уведомление на основе данных сообщения.
+     * @param message Сообщение от Firebase.
+     */
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
@@ -48,15 +45,29 @@ class FcmService : FirebaseMessagingService() {
         NotificationManagerCompat.from(this).notify(Random.nextInt(), notification)
     }
 
+    /**
+     * Обрабатывает получение нового токена для FCM.
+     * Отправляет токен на сервер для обновления.
+     * @param token Новый токен.
+     */
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         sendTokenToServer(token)
     }
 
+    /**
+     * Отправляет токен на сервер для обновления.
+     * @param token Токен для отправки.
+     */
     private fun sendTokenToServer(token: String) {
-
+        // TODO: Сделать отправку токена на сервер.
     }
 
+    /**
+     * Преобразует временную метку в строку с датой и временем.
+     * @param timestamp Временная метка в формате UNIX.
+     * @return Строка с датой и временем.
+     */
     private fun convertToDate(timestamp: String?) : String {
         timestamp ?: return ""
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())

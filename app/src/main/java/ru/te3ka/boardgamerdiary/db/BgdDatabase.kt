@@ -9,6 +9,10 @@ import kotlin.jvm.Volatile;
 import ru.te3ka.boardgamerdiary.dao.*
 import ru.te3ka.boardgamerdiary.model.*
 
+/**
+ * Абстрактный класс базы данных для приложения Board Gamer's Diary.
+ * Определяет таблицы и версии базы данных.
+ */
 @Database(
     entities = [
         Profile::class,
@@ -31,6 +35,12 @@ abstract class BgdDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: BgdDatabase? = null
 
+        /**
+         * Возвращает экземпляр базы данных, создавая его при необходимости.
+         * Использует синхронизацию для обеспечения потоко-безопасности.
+         * @param context Контекст приложения.
+         * @return Экземпляр BgdDatabase.
+         */
         fun getDatabase(context: Context): BgdDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -43,11 +53,21 @@ abstract class BgdDatabase : RoomDatabase() {
             }
         }
 
+        /**
+         * Проверяет, существует ли база данных.
+         * @param context Контекст приложения.
+         * @param dbName Имя базы данных.
+         * @return true, если база данных существует, иначе false.
+         */
         private fun doesDatabaseExist(context: Context, dbName: String): Boolean {
             val dbFile = context.getDatabasePath(dbName)
             return dbFile.exists()
         }
 
+        /**
+         * Инициализирует базу данных, если она еще не существует.
+         * @param context Контекст приложения.
+         */
         fun initializeDatabase(context: Context) {
             if (!doesDatabaseExist(context, "bgd_database")) {
                 getDatabase(context)

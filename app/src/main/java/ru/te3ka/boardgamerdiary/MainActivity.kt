@@ -2,16 +2,11 @@ package ru.te3ka.boardgamerdiary
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.onesignal.OneSignal
 import com.onesignal.debug.LogLevel
 import kotlinx.coroutines.CoroutineScope
@@ -25,6 +20,10 @@ import ru.te3ka.boardgamerdiary.model.Profile
 import ru.te3ka.boardgamerdiary.model.WantToPlay
 import ru.te3ka.boardgamerdiary.model.Wishlist
 
+/**
+ * Основная активность приложения, отвечающая за инициализацию OneSignal,
+ * настройку уведомлений и создание начального профиля пользователя в базе данных.
+ */
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
@@ -50,6 +49,10 @@ class MainActivity : AppCompatActivity() {
         initialiseProfile()
     }
 
+    /**
+     * Создает канал уведомлений для Android O и выше.
+     * Необходимо для отображения уведомлений в системной панели.
+     */
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel() {
         val name = "Test notification channel"
@@ -69,6 +72,10 @@ class MainActivity : AppCompatActivity() {
         notificationManager.createNotificationChannel(channel)
     }
 
+    /**
+     * Инициализирует профиль пользователя в базе данных, если его еще нет.
+     * Создает пустые записи в таблицах базы данных и связывает их с профилем.
+     */
     private fun initialiseProfile() {
         val db = BgdDatabase.getDatabase(this)
         CoroutineScope(Dispatchers.IO).launch {

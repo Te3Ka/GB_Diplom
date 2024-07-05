@@ -18,7 +18,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
@@ -28,15 +27,23 @@ import ru.te3ka.boardgamerdiary.MainActivity
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.databinding.FragmentScheduleMeetingInvitationBinding
 import ru.te3ka.boardgamerdiary.model.Meeting
-import ru.te3ka.boardgamerdiary.model.network_dataclasses.NetworkProfile
-import ru.te3ka.boardgamerdiary.schedule_meeting.ScheduleMeetingFragment
-import ru.te3ka.boardgamerdiary.schedule_meeting.ScheduleMeetingFragment.Companion
 import java.io.IOException
 
+/**
+ * Фрагмент для создания и отправки приглашения на встречу.
+ * Отправляет уведомление и данные приглашения на сервер.
+ */
 class InvitationFragment : Fragment() {
     private var _binding: FragmentScheduleMeetingInvitationBinding? = null
     private val binding get() = _binding!!
 
+    /**
+     * Создает и возвращает вид фрагмента.
+     * @param inflater LayoutInflater для инфлейта макета.
+     * @param container Контейнер для размещения вида.
+     * @param savedInstanceState Сохраненные состояние при создании.
+     * @return Корневой вид фрагмента.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,6 +53,12 @@ class InvitationFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Выполняется после создания вида фрагмента.
+     * Устанавливает обработчик для кнопки отправки приглашения.
+     * @param view Вид фрагмента.
+     * @param savedInstanceState Сохраненные состояние при создании.
+     */
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,6 +68,11 @@ class InvitationFragment : Fragment() {
         }
     }
 
+    /**
+     * Создает уведомление и проверяет разрешения на отправку уведомлений.
+     * Если разрешение не предоставлено, запрашивает его.
+     * Отправляет приглашение на сервер.
+     */
     private fun createNotification() {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -104,9 +122,13 @@ class InvitationFragment : Fragment() {
 
         sendInvitationToServer()
 
-//        NotificationManagerCompat.from(requireContext()).notify(NOTIFICATION_ID, notification)
+        NotificationManagerCompat.from(requireContext()).notify(NOTIFICATION_ID, notification)
     }
 
+    /**
+     * Отправляет приглашение на сервер.
+     * Создает объект Meeting и отправляет его в формате JSON.
+     */
     private fun sendInvitationToServer() {
         val meeting = Meeting(
             date = "${binding.editTextDayWhensMeeting.text}-${binding.editTextMonthWhensMeeting.text}-${binding.editTextYearWhensMeeting.text}",
@@ -142,12 +164,22 @@ class InvitationFragment : Fragment() {
         })
     }
 
-
+    /**
+     * Освобождает ресурсы, связанные с привязкой макета, при уничтожении фрагмента.
+     */
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
 
+    /**
+     * Обрабатывает результат запроса разрешений.
+     * Если разрешение на отправку уведомлений предоставлено, создает уведомление.
+     * Если нет, отображает сообщение об отказе.
+     * @param requestCode Код запроса разрешения.
+     * @param permissions Массив разрешений.
+     * @param grantResults Массив результатов предоставленных разрешений.
+     */
     @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,

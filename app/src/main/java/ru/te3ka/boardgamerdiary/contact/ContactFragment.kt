@@ -1,14 +1,12 @@
 package ru.te3ka.boardgamerdiary.contact
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +16,9 @@ import ru.te3ka.boardgamerdiary.db.BgdDatabase
 import ru.te3ka.boardgamerdiary.model.Contact
 import ru.te3ka.boardgamerdiary.repository.ContactRepository
 
+/**
+ * Фрагмент для отображения и управления списком контактов.
+ */
 class ContactFragment : Fragment() {
     private var _binding: FragmentContactBinding? = null
     private val binding get() = _binding!!
@@ -25,6 +26,9 @@ class ContactFragment : Fragment() {
 
     private lateinit var viewModel: ContactViewModel
 
+    /**
+     * Создает и возвращает представление фрагмента.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,6 +39,9 @@ class ContactFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Вызывается после создания представления. Настраивает ViewModel, RecyclerView и адаптер.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.startAnimation(animationSlideRightIn)
@@ -58,6 +65,9 @@ class ContactFragment : Fragment() {
         }
     }
 
+    /**
+     * Добавляет новый контакт в список.
+     */
     private fun addNewContact() {
         viewModel.allContacts.value?.let { contacts ->
             val count = contacts.size
@@ -67,6 +77,9 @@ class ContactFragment : Fragment() {
         }
     }
 
+    /**
+     * Очищает биндинг при уничтожении фрагмента.
+     */
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

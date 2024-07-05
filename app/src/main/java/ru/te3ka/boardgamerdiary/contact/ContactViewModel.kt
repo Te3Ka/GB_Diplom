@@ -14,15 +14,24 @@ import ru.te3ka.boardgamerdiary.model.network_dataclasses.NetworkContact
 import ru.te3ka.boardgamerdiary.repository.ContactRepository
 import ru.te3ka.boardgamerdiary.service.RetrofitClient
 
+/**
+ * ViewModel для управления данными контактов и взаимодействием с репозиторием.
+ */
 class ContactViewModel(private val repository: ContactRepository) : ViewModel() {
 
     val allContacts: LiveData<List<Contact>> = repository.allContacts
 
+    /**
+     * Добавляет новый контакт в базу данных и загружает его на сервер.
+     */
     fun addContact(contact: Contact) = viewModelScope.launch {
         repository.insert(contact)
         uploadContact(convertToNetworkContact(contact))
     }
 
+    /**
+     * Преобразует локальный объект Contact в объект NetworkContact для отправки на сервер.
+     */
     private fun convertToNetworkContact(contact: Contact): NetworkContact {
         return NetworkContact(
             id = contact.id,
@@ -33,6 +42,9 @@ class ContactViewModel(private val repository: ContactRepository) : ViewModel() 
         )
     }
 
+    /**
+     * Загружает контакт на сервер.
+     */
     private fun uploadContact(contact: NetworkContact) {
         RetrofitClient.apiService.uploadContact(contact).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
@@ -47,6 +59,9 @@ class ContactViewModel(private val repository: ContactRepository) : ViewModel() 
         })
     }
 
+    /**
+     * Обновляет существующий контакт в базе данных и загружает его на сервер.
+     */
     fun updateContact(contact: Contact) {
         viewModelScope.launch {
             repository.updateContact(contact)
@@ -54,6 +69,9 @@ class ContactViewModel(private val repository: ContactRepository) : ViewModel() 
         }
     }
 
+    /**
+     * Удаляет контакт из базы данных.
+     */
     fun deleteContact(contact: Contact) = viewModelScope.launch {
         repository.deleteContact(contact)
     }

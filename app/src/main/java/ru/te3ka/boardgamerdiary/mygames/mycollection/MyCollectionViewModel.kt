@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -17,11 +16,25 @@ import ru.te3ka.boardgamerdiary.model.MyCollection
 import ru.te3ka.boardgamerdiary.model.network_dataclasses.NetworkMyCollection
 import ru.te3ka.boardgamerdiary.service.RetrofitClient
 
+/**
+ * ViewModel для управления данными о коллекциях игр и взаимодействия с репозиторием.
+ *
+ * @param application Приложение, в контексте которого создается ViewModel.
+ */
 class MyCollectionViewModel(application: Application) : AndroidViewModel(application) {
     private val myCollectionDao: MyCollectionDao =
         BgdDatabase.getDatabase(application).myCollectionDao()
     val allMyCollection: Flow<List<MyCollection>> = myCollectionDao.getAllMyCollection()
 
+    /**
+     * Добавляет новую коллекцию игр в базу данных и на сервер.
+     *
+     * @param name Название игры.
+     * @param score Оценка игры.
+     * @param numberOfGames Количество игр.
+     * @param yearOfPurchase Год покупки.
+     * @param monthOfPurchase Месяц покупки.
+     */
     fun addMyCollection(
         name: String,
         score: String,
@@ -42,6 +55,11 @@ class MyCollectionViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+    /**
+     * Добавляет новую коллекцию игр в базу данных и на сервер.
+     *
+     * @param boardgame Коллекция игр.
+     */
     fun addMyCollection(boardgame: MyCollection) {
         viewModelScope.launch {
             myCollectionDao.insertMyCollection(boardgame)
@@ -49,6 +67,11 @@ class MyCollectionViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+    /**
+     * Обновляет существующую коллекцию игр в базе данных и на сервере.
+     *
+     * @param myCollection Обновленная коллекция игр.
+     */
     fun updateMyCollection(myCollection: MyCollection) {
         viewModelScope.launch {
             myCollectionDao.updateMyCollection(myCollection)
@@ -56,12 +79,23 @@ class MyCollectionViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+    /**
+     * Удаляет коллекцию игр из базы данных.
+     *
+     * @param myCollection Коллекция игр для удаления.
+     */
     fun deleteMyCollection(myCollection: MyCollection) {
         viewModelScope.launch {
             myCollectionDao.deleteMyCollection(myCollection)
         }
     }
 
+    /**
+     * Преобразует объект MyCollection в NetworkMyCollection.
+     *
+     * @param myCollection Коллекция игр.
+     * @return Объект NetworkMyCollection.
+     */
     private fun convertToNetworkMyCollection(myCollection: MyCollection): NetworkMyCollection {
         return NetworkMyCollection(
             name = myCollection.name,
@@ -72,6 +106,11 @@ class MyCollectionViewModel(application: Application) : AndroidViewModel(applica
         )
     }
 
+    /**
+     * Загружает коллекцию игр на сервер.
+     *
+     * @param networkMyCollection Коллекция игр для загрузки.
+     */
     private fun uploadMyCollection(networkMyCollection: NetworkMyCollection) {
         RetrofitClient.apiService.uploadMyCollection(networkMyCollection).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {

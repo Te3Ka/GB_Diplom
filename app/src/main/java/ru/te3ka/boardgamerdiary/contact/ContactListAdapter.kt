@@ -1,29 +1,27 @@
 package ru.te3ka.boardgamerdiary.contact
 
-import android.content.ContentValues.TAG
 import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.te3ka.boardgamerdiary.databinding.CustomElementListContactLayoutBinding
 import ru.te3ka.boardgamerdiary.model.Contact
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
+/**
+ * Адаптер для отображения списка контактов в RecyclerView.
+ */
 class ContactListAdapter(
     private var contacts: MutableList<Contact>,
     private val viewModel: ContactViewModel
 ) : RecyclerView.Adapter<ContactListAdapter.ContactViewHolder>() {
 
+    /**
+     * ViewHolder для элемента контакта.
+     */
     inner class ContactViewHolder(
         val binding: CustomElementListContactLayoutBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -62,6 +60,9 @@ class ContactListAdapter(
             }
         }
 
+        /**
+         * Привязывает данные контакта к полям ввода.
+         */
         fun bind(contact: Contact) {
             currentContact = contact
             binding.editTextContactContactPhone.setText(contact.phone)
@@ -71,7 +72,9 @@ class ContactListAdapter(
         }
     }
 
-
+    /**
+     * Создает TextWatcher для отслеживания изменений в полях ввода контакта.
+     */
     private fun createTextWatcher(fieldName: String, position: Int): TextWatcher {
         return object : TextWatcher {
             private val handler = Handler(Looper.getMainLooper())
@@ -103,7 +106,9 @@ class ContactListAdapter(
         }
     }
 
-
+    /**
+     * Создает ViewHolder при создании нового элемента списка.
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         val binding = CustomElementListContactLayoutBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -113,6 +118,9 @@ class ContactListAdapter(
         return ContactViewHolder(binding)
     }
 
+    /**
+     * Привязывает данные контакта к ViewHolder.
+     */
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
         holder.bind(contacts[position])
 
@@ -124,8 +132,14 @@ class ContactListAdapter(
         }
     }
 
+    /**
+     * Возвращает количество элементов в списке контактов.
+     */
     override fun getItemCount(): Int = contacts.size
 
+    /**
+     * Обновляет список контактов и уведомляет адаптер об изменениях.
+     */
     fun updateContacts(newContacts: List<Contact>) {
         val diffCallback = ContactDiffCallback(contacts, newContacts)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
@@ -135,6 +149,9 @@ class ContactListAdapter(
         diffResult.dispatchUpdatesTo(this)
     }
 
+    /**
+     * Удаляет контакт из списка.
+     */
     private fun deleteContact(position: Int) {
         val contactToDelete = contacts[position]
         viewModel.deleteContact(contactToDelete)

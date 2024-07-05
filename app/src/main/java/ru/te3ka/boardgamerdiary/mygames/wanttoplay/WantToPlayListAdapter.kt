@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.model.WantToPlay
 
+/**
+ * Адаптер для отображения списка желаемых игр в RecyclerView.
+ */
 class WantToPlayListAdapter(
     private var wantToPlays: MutableList<WantToPlay>,
     private val unUpdate: (WantToPlay) -> Unit,
@@ -20,16 +23,34 @@ class WantToPlayListAdapter(
     ) :
     RecyclerView.Adapter<WantToPlayListAdapter.ViewHolder>() {
 
+    /**
+     * ViewHolder для элемента списка желаемых игр.
+     *
+     * @property boardgameName Текстовое поле для отображения названия игры
+     */
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val boardgameName: TextView = itemView.findViewById(R.id.editText_wishlist_boardgameName)
     }
 
+    /**
+     * Создает новый ViewHolder при необходимости.
+     *
+     * @param parent Родительский ViewGroup
+     * @param viewType Тип представления (в данном случае не используется)
+     * @return Новый ViewHolder
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.custom_element_list_wishlist_layout, parent, false)
         return ViewHolder(itemView)
     }
 
+    /**
+     * Привязывает данные к элементу списка.
+     *
+     * @param holder ViewHolder, который должен отображать данные
+     * @param position Позиция элемента в списке
+     */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = wantToPlays[position]
         holder.boardgameName.text = item.name
@@ -63,10 +84,20 @@ class WantToPlayListAdapter(
         }
     }
 
+    /**
+     * Возвращает количество элементов в списке.
+     *
+     * @return Количество элементов
+     */
     override fun getItemCount(): Int {
         return wantToPlays.size
     }
 
+    /**
+     * Обновляет данные в адаптере.
+     *
+     * @param newData Новый список данных
+     */
     fun updateData(newData: MutableList<WantToPlay>) {
         val diffCallback = WantToPlayDiffCallback(wantToPlays, newData)
         val diffResult = DiffUtil.calculateDiff(diffCallback)

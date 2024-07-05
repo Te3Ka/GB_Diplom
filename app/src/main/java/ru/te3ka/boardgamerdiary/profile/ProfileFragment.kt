@@ -2,15 +2,11 @@ package ru.te3ka.boardgamerdiary.profile
 
 import android.Manifest
 import android.app.DatePickerDialog
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,12 +18,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.te3ka.boardgamerdiary.MainActivity
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.databinding.FragmentProfileBinding
 import java.io.File
@@ -35,6 +32,14 @@ import java.util.Calendar
 
 private const val CAMERA_PERMISSION_REQUEST_CODE = 1001
 
+/**
+ * Фрагмент профиля пользователя.
+ *
+ * Этот фрагмент отвечает за отображение и редактирование профиля пользователя.
+ * Включает в себя функционал для загрузки и отображения фотографии профиля,
+ * а также для ввода и сохранения информации о пользователе, такой как имя,
+ * контактная информация и дата рождения.
+ */
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
@@ -109,6 +114,9 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Устанавливает все EditText как недоступные для редактирования.
+     */
     private fun allEditTextFalseFocusable() {
         binding.editTextNickname.isFocusable = false
         binding.editTextFirstName.isFocusable = false
@@ -119,6 +127,13 @@ class ProfileFragment : Fragment() {
         binding.editTextHobbies.isFocusable = false
     }
 
+    /**
+     * Получает реальный путь к файлу из URI.
+     *
+     * @param context Контекст приложения.
+     * @param uri URI файла.
+     * @return Путь к файлу, если найден, иначе null.
+     */
     private fun getRealPathFromURI(context: Context, uri: Uri): String? {
         var filePath: String? = null
         context.contentResolver.query(uri, null, null, null, null)?.use { cursor ->
@@ -344,6 +359,12 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    /**
+     * Устанавливает слушатель кликов для EditText с указанным действием.
+     *
+     * @param editText Поле ввода для установки слушателя.
+     * @param onClick Действие, которое выполняется при клике на поле.
+     */
     private fun setupEditTextListener(editText: EditText, onClick: (String) -> Unit) {
         editText.setOnClickListener {
             onClick(editText.text.toString())

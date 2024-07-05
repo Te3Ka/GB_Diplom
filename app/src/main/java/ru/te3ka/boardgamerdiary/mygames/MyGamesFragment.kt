@@ -11,7 +11,12 @@ import android.view.animation.AnimationUtils
 import ru.te3ka.boardgamerdiary.R
 import ru.te3ka.boardgamerdiary.databinding.FragmentMyGamesBinding
 
-
+/**
+ * Фрагмент для отображения страницы с играми пользователя.
+ *
+ * Этот фрагмент управляет отображением пользовательского интерфейса, включая анимацию,
+ * и настройкой ViewPager с адаптером для отображения страниц с играми.
+ */
 class MyGamesFragment : Fragment() {
     private var _binding: FragmentMyGamesBinding? = null
     private val binding get() = _binding!!
@@ -19,6 +24,14 @@ class MyGamesFragment : Fragment() {
 
     private val viewModel: MyGamesViewModel by viewModels()
 
+    /**
+     * Создает и возвращает корневой вид фрагмента.
+     *
+     * @param inflater LayoutInflater для инфляции пользовательского интерфейса.
+     * @param container Родительское представление для фрагмента.
+     * @param savedInstanceState Сохраненное состояние фрагмента.
+     * @return Корневой вид фрагмента.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,6 +42,14 @@ class MyGamesFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Вызывается после создания представления фрагмента.
+     *
+     * Здесь настраивается адаптер для ViewPager и устанавливается связь с TabLayout.
+     *
+     * @param view Корневой вид фрагмента.
+     * @param savedInstanceState Сохраненное состояние фрагмента.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.startAnimation(animationSlideRightIn)
@@ -37,6 +58,9 @@ class MyGamesFragment : Fragment() {
         binding.tableLayoutMyGames.setupWithViewPager(binding.viewPagerMyGames)
     }
 
+    /**
+     * Очищает ресурсы фрагмента при его уничтожении.
+     */
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

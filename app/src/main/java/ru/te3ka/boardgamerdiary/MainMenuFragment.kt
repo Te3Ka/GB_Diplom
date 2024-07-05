@@ -14,6 +14,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.te3ka.boardgamerdiary.databinding.FragmentMainMenuBinding
 
+/**
+ * Фрагмент главного меню приложения. Отвечает за отображение главного экрана
+ * и обработку нажатий на кнопки для навигации по фрагментам.
+ */
 class MainMenuFragment : Fragment() {
     private lateinit var binding: FragmentMainMenuBinding
     private val viewModel: MainMenuViewModel by viewModels()
@@ -54,7 +58,7 @@ class MainMenuFragment : Fragment() {
             viewModel.onNavigationButtonClicked(R.id.action_fragment_main_menu_to_fragment_schedule_meeting)
         }
 
-        // Переход на фрагмент "Гильдии"
+        // Переход на фрагмент "Контакты"
         binding.buttonGuild.setOnClickListener {
             viewModel.onNavigationButtonClicked(R.id.action_fragment_main_menu_to_fragment_contact)
         }
